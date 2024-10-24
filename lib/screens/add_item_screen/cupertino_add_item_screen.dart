@@ -33,8 +33,8 @@ class _CupertinoAddItemScreenState extends State<CupertinoAddItemScreen> {
                           child: CupertinoTextFormFieldRow(
                             textInputAction: TextInputAction.next,
                             autovalidateMode: AutovalidateMode.onUserInteraction,
-                            validator: (title) {
-                              if (title == null || title.isEmpty) {
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
                                 return 'Insira um título válido';
                               } else {
                                 return null;
@@ -43,31 +43,36 @@ class _CupertinoAddItemScreenState extends State<CupertinoAddItemScreen> {
                             placeholder: 'MAC BOOK AIR M1 256GB',
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              flex: 3,
-                              child: CupertinoFormRow(
-                                prefix: Text('Estoque'),
-                                child: CupertinoTextFormFieldRow(
-                                  keyboardType: TextInputType.number,
-                                  textInputAction: TextInputAction.next,
-                                  placeholder: '10',
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 5,
-                              child: CupertinoFormRow(
-                                prefix: Text('Preço'),
-                                child: CupertinoTextFormFieldRow(
-                                  keyboardType: TextInputType.number,
-                                  placeholder: 'R\$ 5200,00',
-                                ),
-                              ),
-                            ),
-                          ],
+                        CupertinoFormRow(
+                          prefix: Text('Estoque'),
+                          child: CupertinoTextFormFieldRow(
+                            keyboardType: TextInputType.number,
+                            placeholder: '10',
+                            textInputAction: TextInputAction.next,
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return '*';
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
+                        ),
+                        CupertinoFormRow(
+                          prefix: Text('Preço'),
+                          child: CupertinoTextFormFieldRow(
+                            keyboardType: TextInputType.numberWithOptions(decimal: true),
+                            placeholder: 'R\$ 5200,00',
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return '*';
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
                         ),
                       ],
                   ),
