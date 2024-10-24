@@ -59,40 +59,16 @@ class ItemData extends ChangeNotifier {
   List<Sale> salesList = [
     Sale(
         dateTime: DateTime.now(),
+        itemsSold: [ItemSold(title: 'title', amount: 2), ItemSold(title: 'title', amount: 2), ItemSold(title: 'title', amount: 2)],
         totalBill: 55000.77
     ),    Sale(
         dateTime: DateTime.now(),
+        itemsSold: [ItemSold(title: 'title', amount: 2), ItemSold(title: 'title', amount: 2), ItemSold(title: 'title', amount: 2)],
         totalBill: 55000.77
     ),    Sale(
         dateTime: DateTime.now(),
-        totalBill: 55000.77
-    ),    Sale(
-        dateTime: DateTime.now(),
-        totalBill: 55000.77
-    ),    Sale(
-        dateTime: DateTime.now(),
-        totalBill: 55000.77
-    ),    Sale(
-        dateTime: DateTime.now(),
+        itemsSold: [ItemSold(title: 'title', amount: 2), ItemSold(title: 'title', amount: 2), ItemSold(title: 'title', amount: 2)],
         totalBill: 55000.77
     ),
   ];
-
-  // List<Widget> getItemsSoldList (List<ItemsSold> items){
-  //   List<Widget>itemsSold = [];
-  //
-  //   for (ItemsSold item in items) {
-  //     itemsSold.add(Row(
-  //       children: [
-  //         Text(item.item),
-  //         Text('${item.amount}'),
-  //         Text('${item.price}'),
-  //       ],
-  //     ),
-  //     );
-  //   }
-  //   return itemsSold;
-  // }
-
-
 }

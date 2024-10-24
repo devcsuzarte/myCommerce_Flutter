@@ -14,16 +14,12 @@ class SalesList extends StatelessWidget {
           return ListView.separated(
               itemBuilder: (context, index) {
                 final sale = salesData.salesList[index];
-                return Container(
-                  child: Expanded(
-                    child: Text('data'),
-                  ),
-                );
+                return SaleCell(sale: sale);
               },
               separatorBuilder: (context, index) {
                 return Divider();
               },
-              itemCount: 1
+              itemCount: salesData.salesList.length
           );
         }
     );

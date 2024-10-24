@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mycommerce/models/item_model.dart';
 import 'package:mycommerce/models/sale_model.dart';
-import 'package:mycommerce/controller/commerce_data.dart';
+import 'items_sold_list.dart';
 
 class SaleCell extends StatelessWidget {
   const SaleCell({
@@ -14,24 +13,16 @@ class SaleCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
-        Flexible(
-            child: CircleAvatar(
-              minRadius: 28,
-              child: Icon(
-                CupertinoIcons.money_dollar,
-                size: 35,
-              ),
-            ),
+        Row(
+          children: [
+            Icon(CupertinoIcons.money_dollar_circle_fill),
+            Text('${sale.dateTime}'),
+          ],
         ),
-        Expanded(
-            child: ListView(
-              children: [
-                Text('data'),
-              ],
-            ),
-        ),
+        ItemsSoldList(items: sale.itemsSold),
+        Text('Total: 77,90'),
       ],
     );
   }
