@@ -16,10 +16,12 @@ class Sale {
 class ItemSold {
   String title;
   int amount;
+  double price;
 
   ItemSold({
     required this.title,
     required this.amount,
+    required this.price,
 });
 
 }

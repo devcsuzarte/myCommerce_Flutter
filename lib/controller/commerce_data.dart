@@ -59,15 +59,15 @@ class ItemData extends ChangeNotifier {
   List<Sale> salesList = [
     Sale(
         dateTime: DateTime.now(),
-        itemsSold: [ItemSold(title: 'title', amount: 2), ItemSold(title: 'title', amount: 2), ItemSold(title: 'title', amount: 2)],
+        itemsSold: [ItemSold(title: 'Macbook Air 13', price: 350.0, amount: 2), ItemSold(title: 'PC Gamer Intel', price: 350.0, amount: 2), ItemSold(title: 'Galaxy Buds Live', price: 350.0, amount: 2)],
         totalBill: 55000.77
     ),    Sale(
         dateTime: DateTime.now(),
-        itemsSold: [ItemSold(title: 'title', amount: 2), ItemSold(title: 'title', amount: 2), ItemSold(title: 'title', amount: 2)],
+        itemsSold: [ItemSold(title: 'iPhone 13 Pro Max', price: 350.0, amount: 2), ItemSold(title: 'title', price: 350.0, amount: 2), ItemSold(title: 'title', price: 350.0, amount: 2)],
         totalBill: 55000.77
     ),    Sale(
         dateTime: DateTime.now(),
-        itemsSold: [ItemSold(title: 'title', amount: 2), ItemSold(title: 'title', amount: 2), ItemSold(title: 'title', amount: 2)],
+        itemsSold: [ItemSold(title: 'Laranja', price: 350.0, amount: 2), ItemSold(title: 'title', price: 350.0, amount: 2), ItemSold(title: 'title', price: 350.0, amount: 2)],
         totalBill: 55000.77
     ),
   ];

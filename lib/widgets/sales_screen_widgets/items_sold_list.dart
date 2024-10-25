@@ -17,9 +17,9 @@ class ItemsSoldList extends StatelessWidget {
         Row(
           children: [
             Text('${item.title}'),
-            Divider(
-            ),
-            Text('${item.amount}'),
+            Text('x${item.amount}'),
+            Spacer(),
+            Text('R\$${item.price}'),
           ],
         )
       );

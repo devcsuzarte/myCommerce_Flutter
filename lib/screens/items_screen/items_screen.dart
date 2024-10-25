@@ -13,11 +13,21 @@ class ItemsScreen extends StatelessWidget {
         child: AppbarCupertino(
           navBarTitle: 'Juninho PCs',
           body: SafeArea(
-            child: Container(
-              child: ItemsList(),
+              child: Scaffold(
+                floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
+                floatingActionButton: FloatingActionButton(
+                  onPressed: () {
+                    print('oi');
+                  },
+                  child: Icon(
+                    CupertinoIcons.cart_fill_badge_plus,
+                    size: 32,
+                    color: kSecondaryColor,),
+                ),
+                body: ItemsList(),
+              ),
             ),
           ),
-        )
     );
   }
 }
