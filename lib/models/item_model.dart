@@ -5,6 +5,7 @@ class Item {
   double? price;
   List<String>? details;
   String? id;
+  bool isSelected;
 
   Item({
     this.productName,
@@ -12,6 +13,12 @@ class Item {
     this.price,
     this.stock,
     this.id,
+    this.isSelected = false,
   });
+
+  bool toggleIsSelected() {
+    print('CHECKBOX = $isSelected');
+    return isSelected = !isSelected;
+  }
 
 }

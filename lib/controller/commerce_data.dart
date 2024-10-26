@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mycommerce/models/item_model.dart';
-import 'package:mycommerce/models/sale_model.dart';
+import 'package:mycommerce/models/bill_model.dart';
 
 class ItemData extends ChangeNotifier {
   List<Item> itemsList = [
@@ -56,19 +56,24 @@ class ItemData extends ChangeNotifier {
     ),
   ];
 
-  List<Sale> salesList = [
-    Sale(
+  List<Bill> salesList = [
+    Bill(
         dateTime: DateTime.now(),
         itemsSold: [ItemSold(title: 'Macbook Air 13', price: 350.0, amount: 2), ItemSold(title: 'PC Gamer Intel', price: 350.0, amount: 2), ItemSold(title: 'Galaxy Buds Live', price: 350.0, amount: 2)],
         totalBill: 55000.77
-    ),    Sale(
+    ),    Bill(
         dateTime: DateTime.now(),
         itemsSold: [ItemSold(title: 'iPhone 13 Pro Max', price: 350.0, amount: 2), ItemSold(title: 'title', price: 350.0, amount: 2), ItemSold(title: 'title', price: 350.0, amount: 2)],
         totalBill: 55000.77
-    ),    Sale(
+    ),    Bill(
         dateTime: DateTime.now(),
         itemsSold: [ItemSold(title: 'Laranja', price: 350.0, amount: 2), ItemSold(title: 'title', price: 350.0, amount: 2), ItemSold(title: 'title', price: 350.0, amount: 2)],
         totalBill: 55000.77
     ),
   ];
+
+  void checkBoxPressed(int index) {
+    itemsList[index].isSelected = itemsList[index].toggleIsSelected();
+    notifyListeners();
+  }
 }

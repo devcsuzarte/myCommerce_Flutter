@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mycommerce/constants.dart';
 import 'package:mycommerce/screens/add_item_screen/cupertino_add_item_screen.dart';
 import 'package:mycommerce/screens/items_screen/items_screen.dart';
-import '../sales_screen/cupertino_sale_screen.dart';
+import '../bills_screen/cupertino_bill_screen.dart';
 
 class CupertinoHomeScreen extends StatefulWidget {
   const CupertinoHomeScreen({super.key});
@@ -17,7 +17,7 @@ class _CupertinoHomeScreenState extends State<CupertinoHomeScreen> {
   final List<Widget> _screens = [
     ItemsScreen(),
     CupertinoAddItemScreen(),
-    CupertinoSaleScreen(),
+    CupertinoBillScreen(),
   ];
 
   @override

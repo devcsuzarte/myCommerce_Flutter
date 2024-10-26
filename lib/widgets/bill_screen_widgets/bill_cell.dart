@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mycommerce/models/sale_model.dart';
+import 'package:mycommerce/models/bill_model.dart';
 import 'items_sold_list.dart';
 
-class SaleCell extends StatelessWidget {
-  const SaleCell({
+class BillCell extends StatelessWidget {
+  const BillCell({
     super.key,
     required this.sale,
   });
 
-  final Sale sale;
+  final Bill sale;
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +20,12 @@ class SaleCell extends StatelessWidget {
           Row(
             children: [
               Icon(
-                CupertinoIcons.money_dollar_circle_fill,
+                CupertinoIcons.money_dollar,
                 size: 28,
               ),
               Text('${sale.dateTime.day}/${sale.dateTime.month}/${sale.dateTime.year} - ${sale.dateTime.hour}:${sale.dateTime.minute}',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold
                 ),
               ),

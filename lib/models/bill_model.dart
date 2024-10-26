@@ -1,12 +1,12 @@
 import 'package:mycommerce/models/item_model.dart';
 
-class Sale {
+class Bill {
 
   DateTime dateTime;
   List<ItemSold> itemsSold;
   double totalBill;
 
-  Sale({
+  Bill({
     required this.dateTime,
     required this.itemsSold,
     required this.totalBill

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mycommerce/models/sale_model.dart';
+import 'package:mycommerce/models/bill_model.dart';
 
 class ItemsSoldList extends StatelessWidget {
   const ItemsSoldList({

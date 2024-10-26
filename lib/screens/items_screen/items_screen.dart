@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycommerce/constants.dart';
+import 'package:mycommerce/screens/sale_screen/cupertino_sale_screen.dart';
 import 'package:mycommerce/widgets/items_screen_widgets/items_list.dart';
 import 'package:mycommerce/widgets/navigation_bar/appbar_cupertino.dart';
 
@@ -17,10 +18,11 @@ class ItemsScreen extends StatelessWidget {
                 floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
                 floatingActionButton: FloatingActionButton(
                   onPressed: () {
-                    print('oi');
+                    Navigator.push(context, CupertinoPageRoute(builder: (context) => CupertinoSaleScreen())
+                    );
                   },
                   child: Icon(
-                    CupertinoIcons.cart_fill_badge_plus,
+                    CupertinoIcons.money_dollar,
                     size: 32,
                     color: kSecondaryColor,),
                 ),
