@@ -72,8 +72,19 @@ class ItemData extends ChangeNotifier {
     ),
   ];
 
+  List<Item> finishSaleList = [];
+
   void checkBoxPressed(int index) {
     itemsList[index].isSelected = itemsList[index].toggleIsSelected();
+
+    if (itemsList[index].isSelected) {
+      finishSaleList.add(itemsList[index]);
+    } else {
+      finishSaleList.remove(itemsList[index]);
+    }
+    for (Item item in finishSaleList) {
+      print(item.productName);
+    }
     notifyListeners();
   }
 }
