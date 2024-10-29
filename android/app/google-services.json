@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "52858438380",
+    "project_id": "mycommerceflutter",
+    "storage_bucket": "mycommerceflutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52858438380:android:86b3832dab61c86788dbc9",
+        "android_client_info": {
+          "package_name": "com.dev.csuzarte.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1kmoKvp-ZFZVL1CbDczRVWbubSrSLPjY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycommerce/constants.dart';
+import 'package:mycommerce/models/item_model.dart';
 import 'package:mycommerce/widgets/navigation_bar/appbar_cupertino.dart';
 
 class CupertinoAddItemScreen extends StatefulWidget {
@@ -12,6 +13,8 @@ class CupertinoAddItemScreen extends StatefulWidget {
 
 class _CupertinoAddItemScreenState extends State<CupertinoAddItemScreen> {
   final formKey = GlobalKey<FormState>();
+
+  late Item item;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +40,8 @@ class _CupertinoAddItemScreenState extends State<CupertinoAddItemScreen> {
                               if (value == null || value.isEmpty) {
                                 return 'Insira um título válido';
                               } else {
+                                item.productName = value;
+                                print(item.productName);
                                 return null;
                               }
                             },
