@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:mycommerce/constants.dart';
 import 'package:mycommerce/models/item_model.dart';
 import 'package:mycommerce/widgets/navigation_bar/appbar_cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+final db = FirebaseFirestore.instance;
 
 class CupertinoAddItemScreen extends StatefulWidget {
-  const CupertinoAddItemScreen({super.key});
+  const CupertinoAddItemScreen({
+    super.key,
+  });
 
   @override
   State<CupertinoAddItemScreen> createState() => _CupertinoAddItemScreenState();
@@ -13,8 +18,7 @@ class CupertinoAddItemScreen extends StatefulWidget {
 
 class _CupertinoAddItemScreenState extends State<CupertinoAddItemScreen> {
   final formKey = GlobalKey<FormState>();
-
-  late Item item;
+  String title = '';
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +44,7 @@ class _CupertinoAddItemScreenState extends State<CupertinoAddItemScreen> {
                               if (value == null || value.isEmpty) {
                                 return 'Insira um título válido';
                               } else {
-                                item.productName = value;
-                                print(item.productName);
+                                title = value;
                                 return null;
                               }
                             },
@@ -127,7 +130,14 @@ class _CupertinoAddItemScreenState extends State<CupertinoAddItemScreen> {
                         onPressed: () {
                           final form = formKey.currentState!;
                           if (form.validate()){
-                            print('Form is valid');
+                            var newitem = Item(productName: title, details: ['Branco', 'Grande'], stock: 40, price: 4500.0);
+                            db.collection('items').add({
+                              'productName': newitem.productName,
+                              'details': newitem.details,
+                              'price': newitem.price,
+                              'stock': newitem.stock,
+                            }).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
+                            print('Form is valid ${newitem.productName}');
                           }
                         },
                         child: Text('Cadastrar'),

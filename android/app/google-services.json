@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:52858438380:android:86b3832dab61c86788dbc9",
         "android_client_info": {
-          "package_name": "com.dev.csuzarte.app"
+          "package_name": "dev.csuzarte.mycommerce.mycommerce"
         }
       },
       "oauth_client": [],
