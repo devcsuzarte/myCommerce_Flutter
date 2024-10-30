@@ -1,18 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:mycommerce/controller/commerce_data.dart';
+import 'package:mycommerce/models/item_model.dart';
 import 'package:provider/provider.dart';
 import 'item_cell.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+final db = FirebaseFirestore.instance;
 
 class ItemsList extends StatelessWidget {
   const ItemsList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ItemData>(
-      builder: (context, itemData, child) {
-        return ListView.separated(
+    return StreamBuilder(
+        stream: db.collection("items").snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Center(
+              child: Text('No data'),
+            );
+          }
+          final items = snapshot.data?.docs;
+          final List<Item> itemList = [];
+          for(var item in items!) {
+            final productName = item['productName'];
+            final price = item['price'];
+            final stock = item['stock'];
+
+            final itemRecived = Item(
+              productName: productName,
+              price: price,
+              stock: stock,
+            );
+            itemList.add(itemRecived);
+          }
+          return ListView.separated(
             itemBuilder: (context, index) {
-              final item = itemData.itemsList[index];
+              final item = itemList[index];
               return Container(
                 child: ItemCell(
                   item: item,
@@ -22,10 +46,30 @@ class ItemsList extends StatelessWidget {
             separatorBuilder: (context, index) {
               return Divider();
             },
-            itemCount: itemData.itemsList.length,
-        );
-      }
-
+            itemCount: itemList.length,
+          );
+        }
     );
   }
 }
+
+
+// return Consumer<ItemData>(
+//   builder: (context, itemData, child) {
+//     return ListView.separated(
+//         itemBuilder: (context, index) {
+//           final item = itemData.itemsList[index];
+//           return Container(
+//             child: ItemCell(
+//               item: item,
+//             ),
+//           );
+//         },
+//         separatorBuilder: (context, index) {
+//           return Divider();
+//         },
+//         itemCount: itemData.itemsList.length,
+//     );
+//   }
+//
+// );
