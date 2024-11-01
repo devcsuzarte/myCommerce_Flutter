@@ -1,9 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycommerce/constants.dart';
+import 'package:mycommerce/models/bill_model.dart';
+import 'package:mycommerce/models/item_model.dart';
 import 'package:mycommerce/widgets/confirm_sale_widget/item_sold_list.dart';
 import 'package:mycommerce/widgets/sale_screen_widgets/sale_cell.dart';
 import 'package:mycommerce/widgets/sale_screen_widgets/sale_list.dart';
+import 'package:provider/provider.dart';
+import '../../controller/commerce_data.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+final db = FirebaseFirestore.instance;
 
 class CupertinoSaleScreen extends StatelessWidget {
   const CupertinoSaleScreen({super.key});
@@ -68,7 +75,7 @@ class CupertinoSaleScreen extends StatelessWidget {
                                   ),
                                 ),
                                 onPressed: () {
-                                  print('End sale');
+                                  Provider.of<ItemData>(context, listen: false).registerSale();
                                   Navigator.pop(context);
                                 },
                                 ),

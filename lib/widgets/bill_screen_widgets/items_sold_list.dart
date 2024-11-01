@@ -2,22 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycommerce/models/bill_model.dart';
 
+import '../../models/item_model.dart';
+
 class ItemsSoldList extends StatelessWidget {
   const ItemsSoldList({
     super.key,
     required this.items,
   });
 
-  final List<ItemSold> items;
+  final List<Item> items;
 
   List<Widget> getItemSold() {
     List<Widget> soldList = [];
-    for (ItemSold item in items) {
+    for (Item item in items) {
       soldList.add(
         Row(
           children: [
-            Text('${item.title}'),
-            Text('x${item.amount}'),
+            Text('${item.productName}'),
+            Text('x${item.stock}'),
             Spacer(),
             Text('R\$${item.price}'),
           ],

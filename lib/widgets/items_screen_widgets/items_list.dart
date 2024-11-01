@@ -34,6 +34,7 @@ class ItemsList extends StatelessWidget {
             );
             itemList.add(itemRecived);
           }
+          Provider.of<ItemData>(context, listen: false).itemsList = itemList;
           return ListView.separated(
             itemBuilder: (context, index) {
               final item = itemList[index];

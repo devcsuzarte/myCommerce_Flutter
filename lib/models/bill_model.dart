@@ -3,7 +3,7 @@ import 'package:mycommerce/models/item_model.dart';
 class Bill {
 
   DateTime dateTime;
-  List<ItemSold> itemsSold;
+  List<Item> itemsSold;
   double totalBill;
 
   Bill({

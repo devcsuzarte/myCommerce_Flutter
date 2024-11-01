@@ -28,7 +28,8 @@ class SaleCell extends StatelessWidget {
       ),
       trailing: CupertinoCheckbox(
           value: Provider.of<ItemData>(context).itemsList[index].isSelected,
-          onChanged: (value) => Provider.of<ItemData>(context, listen: false).checkBoxPressed(index)),
+          onChanged: (value) => Provider.of<ItemData>(context, listen: false).checkBoxPressed(index),
+      ),
     );
   }
 }

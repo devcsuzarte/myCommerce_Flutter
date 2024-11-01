@@ -1,11 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycommerce/controller/commerce_data.dart';
+import 'package:mycommerce/models/bill_model.dart';
 import 'package:mycommerce/widgets/bill_screen_widgets/bill_cell.dart';
 import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+final db = FirebaseFirestore.instance;
 
 class BillList extends StatelessWidget {
-  const BillList({super.key});
+  const BillList({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,4 +31,26 @@ class BillList extends StatelessWidget {
     );
   }
 }
+
+
+
+// return StreamBuilder(
+// stream: db.collection("bill").snapshots(),
+// builder: (context, snapshot) {
+// if(!snapshot.hasData) {
+// return Center(
+// child: Text('Não a registros de vendas'),
+// );
+// }
+//
+// final bills = snapshot.data?.docs;
+// List<Bill> billsList = [];
+//
+// for(var bill in bills!){
+// final dataTime = bill['dateTime'];
+// final itemsSold = bill['itemsSold'];
+// final total = bill['totalBill'];
+// }
+// }
+// )
 

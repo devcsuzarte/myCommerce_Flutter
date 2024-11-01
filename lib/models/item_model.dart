@@ -1,6 +1,7 @@
 
 class Item {
   int? stock;
+  int? amount;
   String? productName;
   double? price;
   List<String>? details;
@@ -13,6 +14,7 @@ class Item {
     this.price,
     this.stock,
     this.id,
+    this.amount = 1,
     this.isSelected = false,
   });
 
