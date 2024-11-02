@@ -16,12 +16,17 @@ class ItemsSoldList extends StatelessWidget {
     List<Widget> soldList = [];
     for (Item item in items) {
       soldList.add(
-        Row(
+        Column(
           children: [
-            Text('${item.productName}'),
-            Text('x${item.stock}'),
-            Spacer(),
-            Text('R\$${item.price}'),
+            Row(
+              children: [
+                Text('x${item.amount}'),
+                Text('${item.productName}'),
+                Spacer(),
+                Text('R\$${item.price?.toStringAsFixed(2)}'),
+              ],
+            ),
+            Divider()
           ],
         )
       );

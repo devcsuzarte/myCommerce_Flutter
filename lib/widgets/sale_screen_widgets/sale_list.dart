@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mycommerce/controller/commerce_data.dart';
 import 'package:mycommerce/widgets/sale_screen_widgets/sale_cell.dart';
 import 'package:provider/provider.dart';
-import '../../models/item_model.dart';
-import '../items_screen_widgets/item_cell.dart';
 
 class SaleList extends StatelessWidget {
   const SaleList({super.key});

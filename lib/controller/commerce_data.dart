@@ -60,44 +60,63 @@ class ItemData extends ChangeNotifier {
   ];
 
   List<Bill> salesList = [
-    Bill(
-        dateTime: DateTime.now(),
-        itemsSold: [Item(productName: 'Macbook Air 13', price: 350.0, stock: 2), Item(productName: 'Macbook Air 13', price: 350.0, stock: 2), Item(productName: 'Macbook Air 13', price: 350.0, stock: 2),],
-        totalBill: 55000.77
-    ),      Bill(
-        dateTime: DateTime.now(),
-        itemsSold: [Item(productName: 'Macbook Air 13', price: 350.0, stock: 2), Item(productName: 'Macbook Air 13', price: 350.0, stock: 2), Item(productName: 'Macbook Air 13', price: 350.0, stock: 2),],
-        totalBill: 55000.77
-    ),      Bill(
-        dateTime: DateTime.now(),
-        itemsSold: [Item(productName: 'Macbook Air 13', price: 350.0, stock: 2), Item(productName: 'Macbook Air 13', price: 350.0, stock: 2), Item(productName: 'Macbook Air 13', price: 350.0, stock: 2),],
-        totalBill: 55000.77
-    ),
+    // Bill(
+    //     dateTime: DateTime.now(),
+    //     itemsSold: [Item(productName: 'Macbook Air 13', price: 350.0, stock: 2), Item(productName: 'Macbook Air 13', price: 350.0, stock: 2), Item(productName: 'Macbook Air 13', price: 350.0, stock: 2),],
+    //     totalBill: 55000.77
+    // ),      Bill(
+    //     dateTime: DateTime.now(),
+    //     itemsSold: [Item(productName: 'Macbook Air 13', price: 350.0, stock: 2), Item(productName: 'Macbook Air 13', price: 350.0, stock: 2), Item(productName: 'Macbook Air 13', price: 350.0, stock: 2),],
+    //     totalBill: 55000.77
+    // ),      Bill(
+    //     dateTime: DateTime.now(),
+    //     itemsSold: [Item(productName: 'Macbook Air 13', price: 350.0, stock: 2), Item(productName: 'Macbook Air 13', price: 350.0, stock: 2), Item(productName: 'Macbook Air 13', price: 350.0, stock: 2),],
+    //     totalBill: 55000.77
+    // ),
   ];
 
   List<Item> finishSaleList = [];
 
   void registerSale() {
     db.collection('bill').add({
-      'dateTime': DateTime.now(),
-      'itemsSold': soldItemsListToSend,
+      'dateTime': DateTime.now().millisecondsSinceEpoch,
+      'itemsSold': mapItemSoldList,
       'totalBill': 3249.34,
     }).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
     finishSaleList = [];
     notifyListeners();
   }
 
-  List<Map<String, String>> get soldItemsListToSend{
-    List<Map<String, String>> soldList = [];
+  List<dynamic> get mapItemSoldList{
+    List<Map<String, dynamic>> soldList = [];
     for (var item in finishSaleList) {
-      Map<String, String> itemSold = {
+      Map<String, dynamic> itemSold = {
         'title': item.productName!,
-        'amount': item.amount!.toString(),
-        'price': item.price.toString(),
+        'amount': item.amount!,
+        'price': item.price,
       };
       soldList.add(itemSold);
     }
     return soldList;
+  }
+
+  List<Item>  getBillListFromMap(List<dynamic> itemOnBill) {
+    List<Item> itemsSold = [];
+
+    for(var item in itemOnBill) {
+
+      final title = item['title'];
+      final amount = item['amount'];
+      print('DEBUG: Amount: $amount');
+      final price = item['price'];
+      final itemToBillList = Item(
+        productName: title,
+        amount: amount,
+        price: price,
+      );
+      itemsSold.add(itemToBillList);
+    }
+    return itemsSold;
   }
 
   void checkBoxPressed(int index) {

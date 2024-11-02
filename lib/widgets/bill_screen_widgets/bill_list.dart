@@ -15,17 +15,38 @@ class BillList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ItemData>(
-        builder: (context, billData, child) {
+    return StreamBuilder(
+        stream: db.collection("bill").snapshots(),
+        builder: (context, snapshot) {
+          if(!snapshot.hasData) {
+            return Center(
+              child: Text('Não a registros de vendas'),
+            );
+          }
+
+          final bills = snapshot.data?.docs;
+          List<Bill> billsList = [];
+
+          for(var bill in bills!){
+            final dataTime = bill['dateTime'];
+            final itemsSold = bill['itemsSold'];
+            final total = bill['totalBill'];
+            final billRecived = Bill(
+                dateTime: DateTime.fromMillisecondsSinceEpoch(dataTime),
+                itemsSold: Provider.of<ItemData>(context, listen: false).getBillListFromMap(itemsSold),
+                totalBill: total
+            );
+            billsList.add(billRecived);
+          }
           return ListView.separated(
               itemBuilder: (context, index) {
-                final bill = billData.salesList[index];
+                final bill = billsList[index];
                 return BillCell(sale: bill);
               },
               separatorBuilder: (context, index) {
                 return Divider();
               },
-              itemCount: billData.salesList.length
+              itemCount: billsList.length,
           );
         }
     );
@@ -34,23 +55,21 @@ class BillList extends StatelessWidget {
 
 
 
-// return StreamBuilder(
-// stream: db.collection("bill").snapshots(),
-// builder: (context, snapshot) {
-// if(!snapshot.hasData) {
-// return Center(
-// child: Text('Não a registros de vendas'),
+
+
+
+// return Consumer<ItemData>(
+// builder: (context, billData, child) {
+// return ListView.separated(
+// itemBuilder: (context, index) {
+// final bill = billData.salesList[index];
+// return BillCell(sale: bill);
+// },
+// separatorBuilder: (context, index) {
+// return Divider();
+// },
+// itemCount: billData.salesList.length
 // );
 // }
-//
-// final bills = snapshot.data?.docs;
-// List<Bill> billsList = [];
-//
-// for(var bill in bills!){
-// final dataTime = bill['dateTime'];
-// final itemsSold = bill['itemsSold'];
-// final total = bill['totalBill'];
-// }
-// }
-// )
+// );
 
