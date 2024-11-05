@@ -53,24 +53,3 @@ class ItemsList extends StatelessWidget {
     );
   }
 }
-
-
-// return Consumer<ItemData>(
-//   builder: (context, itemData, child) {
-//     return ListView.separated(
-//         itemBuilder: (context, index) {
-//           final item = itemData.itemsList[index];
-//           return Container(
-//             child: ItemCell(
-//               item: item,
-//             ),
-//           );
-//         },
-//         separatorBuilder: (context, index) {
-//           return Divider();
-//         },
-//         itemCount: itemData.itemsList.length,
-//     );
-//   }
-//
-// );

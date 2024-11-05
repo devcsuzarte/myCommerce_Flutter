@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycommerce/constants.dart';
+import 'package:mycommerce/controller/commerce_data.dart';
+import 'package:mycommerce/models/detail_model.dart';
 import 'package:mycommerce/models/item_model.dart';
+import 'package:mycommerce/widgets/detail_list/detailList.dart';
 import 'package:mycommerce/widgets/navigation_bar/appbar_cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 
 final db = FirebaseFirestore.instance;
 
@@ -86,39 +90,26 @@ class _CupertinoAddItemScreenState extends State<CupertinoAddItemScreen> {
                   ),
                   CupertinoFormSection.insetGrouped(
                     margin: EdgeInsets.all(12),
-                    header: Text('Adicione propriedades do produto'),
+                    header: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Flexible(
-                              flex: 3,
-                              child: CupertinoTextFormFieldRow(
-                                textInputAction: TextInputAction.next,
-                                placeholder: 'Propriedade',
-                              ),
+                        Text('Adicione propriedades do produto'),
+                        CupertinoButton(
+                            child: Icon(
+                              CupertinoIcons.add_circled_solid,
+                              color: kSecondaryColor,
                             ),
-                            Flexible(
-                              flex: 3,
-                              child: CupertinoTextFormFieldRow(
-                                textInputAction: TextInputAction.next,
-                                placeholder: 'Descrição',
-                              ),
-                            ),
-                            Expanded(
-                                child: CupertinoButton(
-                                    child: Icon(
-                                      CupertinoIcons.add_circled_solid,
-                                      color: kSecondaryColor,
-                                    ),
-                                    onPressed: () {
-                                      print('Add detail pressed');
-                                    })
-                            ),
-                          ],
-                        ),
+                            onPressed: () {
+                              Provider.of<ItemData>(context, listen: false).addDetail();
+                            }),
                       ],
+                    ),
+                    children: [
+                      SizedBox(
+                        height: 80,
+                        child: Detaillist(),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: 20,
@@ -130,14 +121,9 @@ class _CupertinoAddItemScreenState extends State<CupertinoAddItemScreen> {
                         onPressed: () {
                           final form = formKey.currentState!;
                           if (form.validate()){
-                            var newitem = Item(productName: title, details: ['Branco', 'Grande'], stock: 40, price: 4500.0);
-                            db.collection('items').add({
-                              'productName': newitem.productName,
-                              'details': newitem.details,
-                              'price': newitem.price,
-                              'stock': newitem.stock,
-                            }).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
-                            print('Form is valid ${newitem.productName}');
+                            var newItem = Item(productName: title, details: ['Branco', 'Grande'], stock: 40, price: 4500.0);
+                            ItemData().registerItem(newItem);
+                            print('Form is valid ${newItem.productName}');
                           }
                         },
                         child: Text('Cadastrar'),
@@ -151,3 +137,51 @@ class _CupertinoAddItemScreenState extends State<CupertinoAddItemScreen> {
   }
 }
 
+
+// List<Widget> DetailsList = [
+//   Row(
+//     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//     crossAxisAlignment: CrossAxisAlignment.center,
+//     children: [
+//       Flexible(
+//         flex: 3,
+//         child: CupertinoTextFormFieldRow(
+//           textInputAction: TextInputAction.next,
+//           placeholder: 'Propriedade',
+//         ),
+//       ),
+//       Flexible(
+//         flex: 3,
+//         child: CupertinoTextFormFieldRow(
+//           textInputAction: TextInputAction.next,
+//           placeholder: 'Descrição',
+//         ),
+//       ),
+//     ],
+//   ),
+// ];
+//
+// void addDetail(){
+//   DetailsList.add(
+//     Row(
+//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//       crossAxisAlignment: CrossAxisAlignment.center,
+//       children: [
+//         Flexible(
+//           flex: 3,
+//           child: CupertinoTextFormFieldRow(
+//             textInputAction: TextInputAction.next,
+//             placeholder: 'Propriedade',
+//           ),
+//         ),
+//         Flexible(
+//           flex: 3,
+//           child: CupertinoTextFormFieldRow(
+//             textInputAction: TextInputAction.next,
+//             placeholder: 'Descrição',
+//           ),
+//         ),
+//       ],
+//     ),
+//   );
+// }
