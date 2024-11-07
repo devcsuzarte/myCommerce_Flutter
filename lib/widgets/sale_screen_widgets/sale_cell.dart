@@ -24,6 +24,7 @@ class SaleCell extends StatelessWidget {
           Text('${item.productName}', style: kBoldMediumTextStyle,),
           Text('Preço: R\$${item.price}'),
           Text('Estoque: ${item.stock}'),
+          Text('Detalhes: ${ItemData().getDetailsToItemCell(item.details!)}', maxLines: 3,),
         ],
       ),
       trailing: CupertinoCheckbox(

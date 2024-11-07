@@ -9,7 +9,7 @@ class ItemData extends ChangeNotifier {
 
   List<Item> itemsList = [];
   List<Item> finishSaleList = [];
-  List<Detail> detailList = [Detail('Prop', 'description', TextEditingController())];
+  List<Detail> detailList = [Detail('Propriedade', 'Descrição', TextEditingController(), TextEditingController())];
 
   void registerItem(Item newItem){
     db.collection('items').add({
@@ -76,8 +76,22 @@ class ItemData extends ChangeNotifier {
     notifyListeners();
   }
 
+  String getDetailsToItemCell(List<dynamic> itemDetails) {
+    String details = itemDetails.reduce((value, element) => value + " | " + element);
+    print("DEBUG: DETAILS $details");
+    return details;
+  }
+  List<String> get detailsString {
+    List<String> details = [];
+
+    for (var detail in detailList) {
+      details.add('${detail.propertyTextController.text}: ${detail.descriptionTextController.text}');
+    }
+    return details;
+  }
+
   void addDetail() {
-    detailList.add(Detail('property', 'description', TextEditingController()));
+    detailList.add(Detail('Propriedade', 'Descrição', TextEditingController(), TextEditingController()));
     notifyListeners();
   }
 

@@ -4,7 +4,7 @@ class Item {
   int? amount;
   String? productName;
   double? price;
-  List<String>? details;
+  List<dynamic>? details;
   String? id;
   bool isSelected;
 

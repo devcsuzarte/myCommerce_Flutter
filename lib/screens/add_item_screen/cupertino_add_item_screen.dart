@@ -106,7 +106,7 @@ class _CupertinoAddItemScreenState extends State<CupertinoAddItemScreen> {
                     ),
                     children: [
                       SizedBox(
-                        height: 80,
+                        height: MediaQuery.of(context).size.height * 0.25,
                         child: Detaillist(),
                       ),
                     ],
@@ -121,7 +121,10 @@ class _CupertinoAddItemScreenState extends State<CupertinoAddItemScreen> {
                         onPressed: () {
                           final form = formKey.currentState!;
                           if (form.validate()){
-                            var newItem = Item(productName: title, details: ['Branco', 'Grande'], stock: 40, price: 4500.0);
+                            var newItem = Item(
+                                productName: title,
+                                details: Provider.of<ItemData>(context, listen: false).detailsString,
+                                stock: 40, price: 4500.0);
                             ItemData().registerItem(newItem);
                             print('Form is valid ${newItem.productName}');
                           }

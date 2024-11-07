@@ -26,11 +26,15 @@ class ItemsList extends StatelessWidget {
             final productName = item['productName'];
             final price = item['price'];
             final stock = item['stock'];
+            final details = item['details'];
+            final id = item.id;
 
             final itemRecived = Item(
               productName: productName,
               price: price,
               stock: stock,
+              details: details,
+              id: id,
             );
             itemList.add(itemRecived);
           }

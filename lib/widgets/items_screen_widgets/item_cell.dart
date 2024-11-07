@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mycommerce/controller/commerce_data.dart';
 import 'package:mycommerce/models/item_model.dart';
 import 'package:mycommerce/constants.dart';
 
@@ -11,8 +12,11 @@ class ItemCell extends StatelessWidget {
 
   final Item item;
 
+
   @override
   Widget build(BuildContext context) {
+    final itemData = ItemData();
+    itemData.getDetailsToItemCell(item.details!);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -34,7 +38,7 @@ class ItemCell extends StatelessWidget {
                 Text('${item.productName}',
                   style: kBoldTextStyle
                 ),
-                Text('${item.details}'),
+                Text('${itemData.getDetailsToItemCell(item.details!)}'),
               ],
             ),
         ),
