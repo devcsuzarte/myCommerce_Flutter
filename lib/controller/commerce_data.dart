@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:mycommerce/models/detail_model.dart';
 import 'package:mycommerce/models/item_model.dart';
@@ -10,6 +12,16 @@ class ItemData extends ChangeNotifier {
   List<Item> itemsList = [];
   List<Item> finishSaleList = [];
   List<Detail> detailList = [Detail('Propriedade', 'Descrição', TextEditingController(), TextEditingController())];
+
+  void updateStock(String docID, int newAmount) {
+
+    db.collection('items').doc(docID).update({
+      "stock": newAmount,
+    }).then(
+            (value) => print("DocumentSnapshot successfully updated!"),
+        onError: (e) => print("Error updating document $e"));
+
+  }
 
   void registerItem(Item newItem){
     db.collection('items').add({
@@ -25,6 +37,11 @@ class ItemData extends ChangeNotifier {
       'itemsSold': mapItemSoldList,
       'totalBill': 3249.34,
     }).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
+
+    for(var item in finishSaleList) {
+      updateStock(item.id!, item.stock! - item.amount!);
+      print("DEBUG: Amount: ${item.amount} Stock: ${item.stock}");
+    }
     finishSaleList = [];
     notifyListeners();
   }
