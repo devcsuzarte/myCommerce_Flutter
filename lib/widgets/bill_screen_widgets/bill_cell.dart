@@ -38,7 +38,7 @@ class BillCell extends StatelessWidget {
           Row(
             children: [
               Spacer(),
-              Text('Total: R\$77.90',
+              Text('Total: R\$${sale.totalBill.toStringAsFixed(2)}',
                 style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold

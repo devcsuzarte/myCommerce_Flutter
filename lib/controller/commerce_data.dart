@@ -3,7 +3,6 @@ import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
 import 'package:mycommerce/models/detail_model.dart';
 import 'package:mycommerce/models/item_model.dart';
-import 'package:mycommerce/models/bill_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ItemData extends ChangeNotifier {
@@ -35,7 +34,7 @@ class ItemData extends ChangeNotifier {
     db.collection('bill').add({
       'dateTime': DateTime.now().millisecondsSinceEpoch,
       'itemsSold': mapItemSoldList,
-      'totalBill': 3249.34,
+      'totalBill': getTotalBillValue(),
     }).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
 
     for(var item in finishSaleList) {
@@ -92,6 +91,14 @@ class ItemData extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  double getTotalBillValue() {
+   double total = 0.0;
+   for(var item in finishSaleList) {
+     total =total + (item.price! * item.amount!);
+   }
+   return total;
+   }
 
   String getDetailsToItemCell(List<dynamic> itemDetails) {
     String details = itemDetails.reduce((value, element) => value + " | " + element);

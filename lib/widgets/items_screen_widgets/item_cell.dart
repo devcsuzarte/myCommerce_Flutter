@@ -47,7 +47,7 @@ class ItemCell extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text('R\$ ${item.price}',
+                Text('R\$ ${item.price?.toStringAsFixed(2)}',
                   style: kBoldMediumTextStyle,
                 ),
                 Text('${item.stock}x'),
