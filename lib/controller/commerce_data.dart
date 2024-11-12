@@ -45,6 +45,10 @@ class ItemData extends ChangeNotifier {
     notifyListeners();
   }
 
+  void amountSoldChanged(int index, int amount) {
+    finishSaleList[index].amount = amount;
+    notifyListeners();
+  }
 
   List<dynamic> get mapItemSoldList{
     List<Map<String, dynamic>> soldList = [];

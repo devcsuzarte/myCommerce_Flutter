@@ -31,7 +31,7 @@ class ItemCell extends StatelessWidget {
             ),
         ),
         Expanded(
-          flex: 7,
+          flex: 6,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

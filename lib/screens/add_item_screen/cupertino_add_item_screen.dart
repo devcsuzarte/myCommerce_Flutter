@@ -23,6 +23,9 @@ class CupertinoAddItemScreen extends StatefulWidget {
 class _CupertinoAddItemScreenState extends State<CupertinoAddItemScreen> {
   final formKey = GlobalKey<FormState>();
   String title = '';
+  int stock = 1;
+  double price = 0.0;
+
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +69,7 @@ class _CupertinoAddItemScreenState extends State<CupertinoAddItemScreen> {
                               if (value == null || value.isEmpty) {
                                 return '*';
                               } else {
+                                stock = int.parse(value);
                                 return null;
                               }
                             },
@@ -81,6 +85,7 @@ class _CupertinoAddItemScreenState extends State<CupertinoAddItemScreen> {
                               if (value == null || value.isEmpty) {
                                 return '*';
                               } else {
+                                price = double.parse(value);
                                 return null;
                               }
                             },
@@ -124,7 +129,8 @@ class _CupertinoAddItemScreenState extends State<CupertinoAddItemScreen> {
                             var newItem = Item(
                                 productName: title,
                                 details: Provider.of<ItemData>(context, listen: false).detailsString,
-                                stock: 40, price: 4500.0);
+                                stock: stock,
+                                price: price);
                             ItemData().registerItem(newItem);
                             print('Form is valid ${newItem.productName}');
                           }
@@ -139,52 +145,3 @@ class _CupertinoAddItemScreenState extends State<CupertinoAddItemScreen> {
     ) ;
   }
 }
-
-
-// List<Widget> DetailsList = [
-//   Row(
-//     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//     crossAxisAlignment: CrossAxisAlignment.center,
-//     children: [
-//       Flexible(
-//         flex: 3,
-//         child: CupertinoTextFormFieldRow(
-//           textInputAction: TextInputAction.next,
-//           placeholder: 'Propriedade',
-//         ),
-//       ),
-//       Flexible(
-//         flex: 3,
-//         child: CupertinoTextFormFieldRow(
-//           textInputAction: TextInputAction.next,
-//           placeholder: 'Descrição',
-//         ),
-//       ),
-//     ],
-//   ),
-// ];
-//
-// void addDetail(){
-//   DetailsList.add(
-//     Row(
-//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//       crossAxisAlignment: CrossAxisAlignment.center,
-//       children: [
-//         Flexible(
-//           flex: 3,
-//           child: CupertinoTextFormFieldRow(
-//             textInputAction: TextInputAction.next,
-//             placeholder: 'Propriedade',
-//           ),
-//         ),
-//         Flexible(
-//           flex: 3,
-//           child: CupertinoTextFormFieldRow(
-//             textInputAction: TextInputAction.next,
-//             placeholder: 'Descrição',
-//           ),
-//         ),
-//       ],
-//     ),
-//   );
-// }

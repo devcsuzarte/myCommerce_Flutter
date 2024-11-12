@@ -17,7 +17,21 @@ class ItemSoldList extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('${item.productName}'),
-                    Text('1x'),
+                    SizedBox(
+                      height: 50,
+                      width: 50,
+                        child: CupertinoTextField(
+                          textAlign: TextAlign.center,
+                          textAlignVertical: TextAlignVertical.center,
+                          style: TextStyle(
+
+                          ),
+                          onChanged: (amount){
+                            Provider.of<ItemData>(context, listen: false).amountSoldChanged(index, int.parse(amount));
+                            print("AMOUNT: $amount");
+                          },
+                        ),
+                    )
                   ],
                 );
           },

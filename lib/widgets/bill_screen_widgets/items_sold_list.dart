@@ -20,7 +20,7 @@ class ItemsSoldList extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text('x${item.amount}'),
+                Text('x${item.amount} '),
                 Text('${item.productName}'),
                 Spacer(),
                 Text('R\$${item.price?.toStringAsFixed(2)}'),
