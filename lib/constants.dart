@@ -5,8 +5,9 @@ const kSecondaryColor = Color(0xFF172E54);
 
 
 const kBoldTextStyle = TextStyle(
-fontWeight: FontWeight.bold,
-fontSize: 20,
+  color: Colors.black12,
+  fontWeight: FontWeight.bold,
+  fontSize: 20,
 );
 
 const kBoldMediumTextStyle = TextStyle(

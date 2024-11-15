@@ -12,10 +12,29 @@ class ItemData extends ChangeNotifier {
   List<Item> finishSaleList = [];
   List<Detail> detailList = [Detail('Propriedade', 'Descrição', TextEditingController(), TextEditingController())];
 
-  void updateStock(String docID, int newAmount) {
+  void deleteItem(String docID) {
+    db.collection('items').doc(docID).delete().then(
+          (doc) => print("Document deleted"),
+      onError: (e) => print("Error updating document $e"),
+    );
+    notifyListeners();
+  }
+
+  void updateItem(String docID, int newStock, double newPrice){
+    db.collection('items').doc(docID).update({
+      "stock": newStock,
+      "price": newPrice,
+    }).then(
+            (value) => print("DocumentSnapshot successfully updated!"),
+        onError: (e) => print("Error updating document $e"));
+
+    notifyListeners();
+  }
+
+  void updateStock(String docID, int newStock) {
 
     db.collection('items').doc(docID).update({
-      "stock": newAmount,
+      "stock": newStock,
     }).then(
             (value) => print("DocumentSnapshot successfully updated!"),
         onError: (e) => print("Error updating document $e"));
