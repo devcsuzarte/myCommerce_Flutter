@@ -31,26 +31,28 @@ class ItemCell extends StatelessWidget {
             ),
         ),
         Expanded(
-          flex: 6,
+          flex: 7,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('${item.productName}',
                   style: kBoldTextStyle
                 ),
-                Text('${itemData.getDetailsToItemCell(item.details!)}'),
+                Text('R\$ ${item.price?.toStringAsFixed(2)}',
+                  style: kBoldMediumTextStyle,
+                ),
+                Text('${itemData.getDetailsToItemCell(item.details!)}',
+                  style: kNormalTextStyle,
+                ),
               ],
             ),
         ),
         Flexible(
-          flex: 3,
+          flex: 2,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text('R\$ ${item.price?.toStringAsFixed(2)}',
-                  style: kBoldMediumTextStyle,
-                ),
-                Text('${item.stock}x'),
+                CircleAvatar(child: Text('${item.stock}x')),
               ],
             ),
         ),
