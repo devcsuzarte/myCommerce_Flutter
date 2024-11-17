@@ -12,9 +12,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 final db = FirebaseFirestore.instance;
 
-class CupertinoSaleScreen extends StatelessWidget {
+class CupertinoSaleScreen extends StatefulWidget {
   const CupertinoSaleScreen({super.key});
 
+  @override
+  State<CupertinoSaleScreen> createState() => _CupertinoSaleScreenState();
+}
+
+class _CupertinoSaleScreenState extends State<CupertinoSaleScreen> {
+  @override
+  void deactivate() {
+    // TODO: implement deactivate
+    print("OIE EU FUI DE BASE");
+    Provider.of<ItemData>(context, listen: true).cleanFinishSaleList();
+    super.deactivate();
+  }
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(

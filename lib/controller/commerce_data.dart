@@ -12,6 +12,10 @@ class ItemData extends ChangeNotifier {
   List<Item> finishSaleList = [];
   List<Detail> detailList = [Detail('Propriedade', 'Descrição', TextEditingController(), TextEditingController())];
 
+  void cleanFinishSaleList() {
+    finishSaleList = [];
+    cleanCheckedItems();
+  }
   void deleteItem(String docID) {
     db.collection('items').doc(docID).delete().then(
           (doc) => print("Document deleted"),
@@ -50,18 +54,21 @@ class ItemData extends ChangeNotifier {
     }).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
   }
   void registerSale() {
-    db.collection('bill').add({
-      'dateTime': DateTime.now().millisecondsSinceEpoch,
-      'itemsSold': mapItemSoldList,
-      'totalBill': getTotalBillValue(),
-    }).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
-
     for(var item in finishSaleList) {
-      updateStock(item.id!, item.stock! - item.amount!);
-      print("DEBUG: Amount: ${item.amount} Stock: ${item.stock}");
+      if(item.amount! > item.stock!) {
+        print('Amount not available');
+        break;
+      } else {
+        db.collection('bill').add({
+          'dateTime': DateTime.now().millisecondsSinceEpoch,
+          'itemsSold': mapItemSoldList,
+          'totalBill': getTotalBillValue(),
+        }).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
+        updateStock(item.id!, item.stock! - item.amount!);
+        print("DEBUG: Amount: ${item.amount} Stock: ${item.stock}");
+      }
     }
     finishSaleList = [];
-    notifyListeners();
   }
 
   void amountSoldChanged(int index, int amount) {
@@ -99,6 +106,14 @@ class ItemData extends ChangeNotifier {
       itemsSold.add(itemToBillList);
     }
     return itemsSold;
+  }
+
+  void cleanCheckedItems(){
+    for (var i=0; i < itemsList.length; i++){
+      if(itemsList[i].isSelected){
+        itemsList[i].isSelected = itemsList[i].toggleIsSelected();
+      }
+    }
   }
 
   void checkBoxPressed(int index) {
