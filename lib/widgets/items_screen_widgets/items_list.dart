@@ -48,118 +48,119 @@ class ItemsList extends StatelessWidget {
               final TextEditingController stockTextController = TextEditingController();
               priceTextController.text = item.price.toString();
               stockTextController.text = item.stock.toString();
-              return CupertinoButton(
+              return MaterialButton(
                 padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 0.0),
                 onPressed: () {
-                  showCupertinoModalPopup(
+                  showModalBottomSheet(
                       context: context,
                       builder: (context) => Column(
                         children:[
-                          Spacer(),
                           Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(15)
+                              borderRadius: BorderRadius.circular(10)
                             ),
-                            width: MediaQuery.of(context).size.width * 0.95,
+                            width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height * 0.5,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 20.0),
-                                          child: Text(item.productName!,
-                                            style: TextStyle(
-                                                color: kSecondaryColor,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 21,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            flex: 7,
+                                            child: Text(item.productName!,
+                                              style: TextStyle(
+                                                  color: kSecondaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 21,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        CupertinoButton(
-                                            child: Icon(
-                                              CupertinoIcons.trash_fill,
-                                              color: Colors.red,
+                                          Expanded(
+                                            flex: 1,
+                                            child: MaterialButton(
+                                                child: Icon(
+                                                  CupertinoIcons.trash_fill,
+                                                  color: Colors.red,
+                                                ),
+                                                onPressed:() {
+                                                  Provider.of<ItemData>(context, listen: false).deleteItem(item.id!);
+                                                  Navigator.pop(context);
+                                                }),
+                                          ),
+                                          Expanded(
+                                            flex: 1,
+                                            child: MaterialButton(
+                                                child: Icon(
+                                                  CupertinoIcons.check_mark,
+                                                  color: Colors.green,
+                                                ),
+                                                onPressed:() {
+                                                  Provider.of<ItemData>(context, listen: false).updateItem(
+                                                      item.id!,
+                                                      int.parse(stockTextController.text),
+                                                      double.parse(priceTextController.text)
+                                                  );
+                                                  Navigator.pop(context);
+                                                }),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Divider(),
+                                  Expanded(
+                                    flex: 5,
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                                child: Text('Preço:'),
+                                              flex: 1,
                                             ),
-                                            onPressed:() {
-                                              Provider.of<ItemData>(context, listen: false).deleteItem(item.id!);
-                                              Navigator.pop(context);
-                                            })
+                                            Expanded(
+                                              flex: 5,
+                                              child: TextField(
+                                                controller: priceTextController,
+                                                style: TextStyle(
+
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: Text("Estoque:"),
+                                              flex: 1,
+                                            ),
+                                            Expanded(
+                                              flex: 5,
+                                              child: TextField(
+                                                controller: stockTextController,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ],
                                     ),
                                   ),
-                                ),
-                                Divider(),
-                                Expanded(
-                                  flex: 5,
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                              child: Text('Preço:'),
-                                            flex: 1,
-                                          ),
-                                          Expanded(
-                                            flex: 5,
-                                            child: CupertinoTextField(
-                                              controller: priceTextController,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Text("Estoque:"),
-                                            flex: 1,
-                                          ),
-                                          Expanded(
-                                            flex: 5,
-                                            child: CupertinoTextField(
-                                              controller: stockTextController,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: CupertinoButton(
-                                    color: kPrimaryColor,
-                                    child: Text(
-                                      'Confirmar alteração',
-                                      style: TextStyle(
-                                        color: kSecondaryColor,
-                                        fontWeight: FontWeight.bold
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      Provider.of<ItemData>(context, listen: false).updateItem(
-                                          item.id!,
-                                          int.parse(stockTextController.text),
-                                          double.parse(priceTextController.text)
-                                      );
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                ),
-                                Spacer()
-                              ],
+                                ],
+                              ),
                             ),
-                        ), 
-                          Spacer()
+                        ),
                         ]
                       ),
                   );

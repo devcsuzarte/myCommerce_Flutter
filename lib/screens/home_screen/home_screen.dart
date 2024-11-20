@@ -5,14 +5,21 @@ import 'package:mycommerce/screens/add_item_screen/cupertino_add_item_screen.dar
 import 'package:mycommerce/screens/items_screen/items_screen.dart';
 import '../bills_screen/cupertino_bill_screen.dart';
 
-class CupertinoHomeScreen extends StatefulWidget {
-  const CupertinoHomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<CupertinoHomeScreen> createState() => _CupertinoHomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _CupertinoHomeScreenState extends State<CupertinoHomeScreen> {
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+
+  void _onTabTapped(int index){
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   final List<Widget> _screens = [
     ItemsScreen(),
@@ -22,9 +29,8 @@ class _CupertinoHomeScreenState extends State<CupertinoHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoTabScaffold(
-      tabBar: CupertinoTabBar(
-        activeColor: kSecondaryColor,
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.house),
@@ -36,15 +42,11 @@ class _CupertinoHomeScreenState extends State<CupertinoHomeScreen> {
               icon: Icon(CupertinoIcons.list_bullet_below_rectangle),
               label: "Histórico",
             ),
-          ]
+          ],
+        currentIndex: _selectedIndex,
+        onTap: _onTabTapped,
       ),
-      tabBuilder: (BuildContext context, int index) {
-        return CupertinoTabView(
-          builder: (BuildContext context) {
-            return _screens[index];
-          },
-        );
-      },
+      body: _screens[_selectedIndex],
     );
   }
 }

@@ -10,9 +10,10 @@ class ItemsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-        child: AppbarCupertino(
-          navBarTitle: 'Juninho PCs',
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('myCommerce'),
+      ),
           body: SafeArea(
               child: Scaffold(
                 floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
@@ -29,8 +30,7 @@ class ItemsScreen extends StatelessWidget {
                 body: ItemsList(),
               ),
             ),
-          ),
-    );
+          );
   }
 }
 
