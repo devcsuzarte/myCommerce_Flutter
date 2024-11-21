@@ -1,10 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycommerce/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mycommerce/screens/home_screen/home_screen.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
 
+class _RegisterScreenState extends State<RegisterScreen> {
+  final _auth = FirebaseAuth.instance;
+  late String email;
+  late String password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +57,9 @@ class RegisterScreen extends StatelessWidget {
             SizedBox(
               height: 42,
               child: TextField(
+                onChanged: (text) {
+                  email = text;
+                },
                 decoration: kInputDecoration.copyWith(
                     labelText: 'Email'
                 ),
@@ -57,6 +69,9 @@ class RegisterScreen extends StatelessWidget {
             SizedBox(
               height: 42,
               child: TextField(
+                onChanged: (text) {
+                  password = text;
+                },
                 decoration: kInputDecoration.copyWith(
                     labelText: 'Senha'
                 ),
@@ -82,7 +97,14 @@ class RegisterScreen extends StatelessWidget {
                   foregroundColor: Colors.white,
                   backgroundColor: Color(0xFF139C82),
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  final newUser = await _auth.createUserWithEmailAndPassword(
+                      email: email,
+                      password: password);
+                  if(newUser != null){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+                  }
+                },
                 icon: const Icon(Icons.input),
                 label: const Text('Finalizar cadastro'),
               ),

@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycommerce/screens/register_screen/register_screen.dart';
 import 'package:mycommerce/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mycommerce/screens/home_screen/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,6 +13,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _auth = FirebaseAuth.instance;
+  late String email;
+  late String password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,6 +55,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(
                           height: 42,
                           child: TextField(
+                            onChanged: (text) {
+                              email = text;
+                            },
                             decoration: kInputDecoration.copyWith(
                                 labelText: 'Email',
                                 hintText: 'store@mycommerce.com'
@@ -60,6 +68,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(
                           height: 42,
                           child: TextField(
+                            onChanged: (text) {
+                              password = text;
+                            },
                               decoration: kInputDecoration.copyWith(
                                   labelText: 'Senha'
                               )
@@ -76,7 +87,16 @@ class _LoginScreenState extends State<LoginScreen> {
                               foregroundColor: Colors.white,
                               backgroundColor: Color(0xFF139C82),
                             ),
-                            onPressed: () {},
+                            onPressed: () async {
+                              try {
+                                final user = await _auth.signInWithEmailAndPassword(email: email, password: password);
+                                if(user != null){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()),);
+                                }
+                              } catch (e) {
+                                print('Login fail with error: $e');
+                              }
+                            },
                             icon: const Icon(Icons.input),
                             label: const Text('Fazer login'),
                           ),
