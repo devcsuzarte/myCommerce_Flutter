@@ -22,9 +22,12 @@ const kNormalTextStyle = TextStyle(
 
 const kInputDecoration = InputDecoration(
   labelText: 'Label Text',
+  labelStyle: TextStyle(
+    color: Colors.black
+  ),
   floatingLabelBehavior: FloatingLabelBehavior.always,
   hintStyle: TextStyle(
-    color: Colors.black,
+    color: Colors.grey,
   ),
   contentPadding:
   EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
