@@ -9,15 +9,15 @@ class CupertinoBillScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-        child: AppbarCupertino(
-          navBarTitle: 'Minhas vendas',
-          body: SafeArea(
-            child: Container(
-              child: BillList(),
-            ),
-          ),
-        )
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Minhas vendas'),
+      ),
+      body: SafeArea(
+        child: Container(
+          child: BillList(),
+        ),
+      ),
     );
   }
 }
