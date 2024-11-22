@@ -18,32 +18,41 @@ class Detaillist extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Flexible(
-                      flex: 3,
-                      child: CupertinoTextFormFieldRow(
-                        textInputAction: TextInputAction.next,
-                        placeholder: detail.property,
-                        controller: detail.propertyTextController,
-                      ),
-                    ),
-                    Flexible(
-                      flex: 3,
-                      child: CupertinoTextFormFieldRow(
-                        textInputAction: TextInputAction.next,
-                        placeholder: detail.description,
-                        controller: detail.descriptionTextController,
-                      ),
-                    ),
                     Expanded(
                         child: CupertinoButton(
                             child: Icon(
-                              CupertinoIcons.minus_circle_fill,
-                              color: kSecondaryColor,
+                              CupertinoIcons.trash,
+                              color: Colors.red,
                             ),
                             onPressed: () {
                               Provider.of<ItemData>(context, listen: false).removeDetail(index);
                               print('Remove detail pressed');
                             })
+                    ),
+                    Flexible(
+                      flex: 3,
+                      child: TextFormField(
+                        textInputAction: TextInputAction.next,
+                        controller: detail.propertyTextController,
+                        decoration: kInputDecoration.copyWith(
+                          labelText: 'Propriedade',
+                          hintText: 'Ex: Cor'
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Flexible(
+                      flex: 3,
+                      child: TextFormField(
+                        textInputAction: TextInputAction.next,
+                        controller: detail.descriptionTextController,
+                        decoration: kInputDecoration.copyWith(
+                            labelText: 'Valor',
+                            hintText: 'Ex: Preto'
+                        ),
+                      ),
                     ),
                   ],
                 );

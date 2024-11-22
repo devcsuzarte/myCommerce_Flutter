@@ -11,16 +11,16 @@ import 'package:provider/provider.dart';
 
 final db = FirebaseFirestore.instance;
 
-class CupertinoAddItemScreen extends StatefulWidget {
-  const CupertinoAddItemScreen({
+class AddItemScreen extends StatefulWidget {
+  const AddItemScreen({
     super.key,
   });
 
   @override
-  State<CupertinoAddItemScreen> createState() => _CupertinoAddItemScreenState();
+  State<AddItemScreen> createState() => _AddItemScreenState();
 }
 
-class _CupertinoAddItemScreenState extends State<CupertinoAddItemScreen> {
+class _AddItemScreenState extends State<AddItemScreen> {
   final formKey = GlobalKey<FormState>();
   String title = '';
   int stock = 1;
@@ -36,47 +36,58 @@ class _CupertinoAddItemScreenState extends State<CupertinoAddItemScreen> {
         body:  Form(
               key: formKey,
               child: ListView(
-                padding: EdgeInsets.zero,
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 8.0),
-                          child: Text('Preencha as informações'),
+                          padding: const EdgeInsets.symmetric(vertical: 15.0),
+                          child: Text(
+                            'Preencha as informações',
+                            style: TextStyle(
+                              fontSize: 18
+                            ),
+                          ),
                         ),
                         Container(
                           child: Column(
                             children: [
-                              TextFormField(
-                                decoration: kInputDecoration.copyWith(
-                                  labelText: 'Título do Produto',
-                                  hintText: 'MACBOOK AIR M1'
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 15.0),
+                                child: TextFormField(
+                                  decoration: kInputDecoration.copyWith(
+                                    labelText: 'Título do Produto',
+                                    hintText: 'MACBOOK AIR M1'
+                                  ),
+                                  textInputAction: TextInputAction.next,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Insira um título válido';
+                                    } else {
+                                      title = value;
+                                      return null;
+                                    }
+                                  },
                                 ),
-                                textInputAction: TextInputAction.next,
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Insira um título válido';
-                                  } else {
-                                    title = value;
-                                    return null;
-                                  }
-                                },
                               ),
-                              TextFormField(
-                                decoration: kInputDecoration.copyWith(
-                                  labelText: 'Quantidade em estoque',
-                                  hintText: '21',
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 15.0),
+                                child: TextFormField(
+                                  decoration: kInputDecoration.copyWith(
+                                    labelText: 'Quantidade em estoque',
+                                    hintText: '21',
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                  textInputAction: TextInputAction.next,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return '*';
+                                    } else {
+                                      stock = int.parse(value);
+                                      return null;
+                                    }
+                                  },
                                 ),
-                                keyboardType: TextInputType.number,
-                                textInputAction: TextInputAction.next,
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return '*';
-                                  } else {
-                                    stock = int.parse(value);
-                                    return null;
-                                  }
-                                },
                               ),
                               TextFormField(
                                 decoration: kInputDecoration.copyWith(
@@ -101,11 +112,21 @@ class _CupertinoAddItemScreenState extends State<CupertinoAddItemScreen> {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text('Adicione propriedades do produto'),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 20.0),
+                            child: Text(
+                              'Propriedades do produto',
+                              style: TextStyle(
+                                fontSize: 18
+                              ),
+                            ),
+                          ),
+                          Spacer(),
                           IconButton(
                               icon: Icon(
-                                CupertinoIcons.add_circled_solid,
+                                CupertinoIcons.add,
                                 color: kSecondaryColor,
                               ),
                               onPressed: () {
@@ -126,6 +147,10 @@ class _CupertinoAddItemScreenState extends State<CupertinoAddItemScreen> {
                     margin: EdgeInsets.symmetric(horizontal: 12),
                     width: double.infinity,
                     child: TextButton(
+                      style: TextButton.styleFrom(
+                        foregroundColor: kSecondaryColor,
+                        backgroundColor: kPrimaryColor,
+                      ),
                         onPressed: () {
                           final form = formKey.currentState!;
                           if (form.validate()){
