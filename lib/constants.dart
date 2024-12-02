@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 const kPrimaryColor = Color(0xFFD8E2FF);
 const kSecondaryColor = Color(0xFF172E54);
-
+// #0C183E
+// #4CD0FE
 
 const kBoldTextStyle = TextStyle(
   color: Colors.black54,

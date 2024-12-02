@@ -43,12 +43,3 @@ class ItemsSoldList extends StatelessWidget {
 
   }
 }
-
-// return ListView.builder(
-//     itemCount: item.length,
-//     itemBuilder: (BuildContext context, int index) {
-//       return Text(
-//         '${item[index].amount}'
-//       );
-//     }
-//     );

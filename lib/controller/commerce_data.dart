@@ -46,12 +46,18 @@ class ItemData extends ChangeNotifier {
   }
 
   void registerItem(Item newItem){
-    db.collection('items').add({
-      'productName': newItem.productName,
-      'details': newItem.details,
-      'price': newItem.price,
-      'stock': newItem.stock,
-    }).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
+
+    try {
+      db.collection('items').add({
+        'productName': newItem.productName,
+        'details': newItem.details,
+        'price': newItem.price,
+        'stock': newItem.stock,
+      }).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
+    } catch (e) {
+      print('DEBUG: Erro to register item $e');
+    }
+
   }
   void registerSale() {
     for(var item in finishSaleList) {

@@ -14,39 +14,52 @@ class BillCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Column(
-        children: [
-          Row(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 1
+          ),
+          borderRadius: BorderRadius.circular(5)
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+          child: Column(
             children: [
-              Icon(
-                CupertinoIcons.money_dollar,
-                size: 28,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Text('${sale.dateTime.day}/${sale.dateTime.month}/${sale.dateTime.year} - ${sale.dateTime.hour}:${sale.dateTime.minute}',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ),
+                  Icon(
+                    Icons.monetization_on_sharp,
+                    color: Colors.green,
+                    size: 28,
+                  ),
+                ],
               ),
-              Text('${sale.dateTime.day}/${sale.dateTime.month}/${sale.dateTime.year} - ${sale.dateTime.hour}:${sale.dateTime.minute}',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold
-                ),
+              ItemsSoldList(items: sale.itemsSold),
+              Row(
+                children: [
+                  Spacer(),
+                  Text('Total: R\$${sale.totalBill.toStringAsFixed(2)}',
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10.0, top: 8, ),
-            child: ItemsSoldList(items: sale.itemsSold),
-          ),
-          Row(
-            children: [
-              Spacer(),
-              Text('Total: R\$${sale.totalBill.toStringAsFixed(2)}',
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold
-                ),
-              ),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }

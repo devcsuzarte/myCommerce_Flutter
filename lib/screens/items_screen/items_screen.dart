@@ -13,13 +13,15 @@ class ItemsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('myCommerce'),
+        backgroundColor: kSecondaryColor,
+        foregroundColor: kPrimaryColor,
       ),
           body: SafeArea(
               child: Scaffold(
                 floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
                 floatingActionButton: FloatingActionButton(
                   onPressed: () {
-                    Navigator.push(context, CupertinoPageRoute(builder: (context) => CupertinoSaleScreen())
+                    Navigator.push(context, CupertinoPageRoute(builder: (context) => SaleScreen())
                     );
                   },
                   child: Icon(

@@ -52,27 +52,33 @@ class ItemsList extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 0.0),
                 onPressed: () {
                   showModalBottomSheet(
+                      enableDrag: true,
+                      showDragHandle: true,
+                      backgroundColor: Colors.white,
                       context: context,
-                      builder: (context) => Column(
-                        children:[
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)
-                            ),
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * 0.5,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 1,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
+                      builder: (context) => Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10)
+                        ),
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height * 0.5,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: kPrimaryColor,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
@@ -99,7 +105,6 @@ class ItemsList extends StatelessWidget {
                                                 }),
                                           ),
                                           Expanded(
-                                            flex: 1,
                                             child: MaterialButton(
                                                 child: Icon(
                                                   CupertinoIcons.check_mark,
@@ -118,51 +123,41 @@ class ItemsList extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Divider(),
-                                  Expanded(
-                                    flex: 5,
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                                child: Text('Preço:'),
-                                              flex: 1,
-                                            ),
-                                            Expanded(
-                                              flex: 5,
-                                              child: TextField(
-                                                controller: priceTextController,
-                                                style: TextStyle(
-
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              child: Text("Estoque:"),
-                                              flex: 1,
-                                            ),
-                                            Expanded(
-                                              flex: 5,
-                                              child: TextField(
-                                                controller: stockTextController,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
-                            ),
+                              Divider(),
+                              Expanded(
+                                child: Row(
+                                  children: [
+                                    Flexible(
+                                      child: TextField(
+                                        controller: priceTextController,
+                                        decoration: kInputDecoration.copyWith(
+                                          labelText: 'Preço'
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Flexible(
+                                      child: TextField(
+                                        controller: stockTextController,
+                                        decoration: kInputDecoration.copyWith(
+                                            labelText: 'Estoque'
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.3
+                              )
+                            ],
+                          ),
                         ),
-                        ]
-                      ),
+                                               ),
                   );
                   print("ID: ${item.id}");
                 },
