@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycommerce/constants.dart';
 import 'package:mycommerce/models/bill_model.dart';
 
 import '../../models/item_model.dart';
@@ -26,7 +27,9 @@ class ItemsSoldList extends StatelessWidget {
                 Text('R\$${item.price?.toStringAsFixed(2)}'),
               ],
             ),
-            Divider()
+            Divider(
+              color: kSecondaryColor,
+            )
           ],
         )
       );

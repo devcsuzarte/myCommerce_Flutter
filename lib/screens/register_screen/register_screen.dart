@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mycommerce/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mycommerce/screens/home_screen/home_screen.dart';
+import 'package:mycommerce/screens/login_screen/login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -102,7 +103,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       email: email,
                       password: password);
                   if(newUser != null){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+                    Navigator.pop(context);
                   }
                 },
                 icon: const Icon(Icons.input),

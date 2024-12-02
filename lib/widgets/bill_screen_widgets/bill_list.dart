@@ -38,13 +38,10 @@ class BillList extends StatelessWidget {
             );
             billsList.add(billRecived);
           }
-          return ListView.separated(
+          return ListView.builder(
               itemBuilder: (context, index) {
                 final bill = billsList[index];
                 return BillCell(sale: bill);
-              },
-              separatorBuilder: (context, index) {
-                return Divider();
               },
               itemCount: billsList.length,
           );

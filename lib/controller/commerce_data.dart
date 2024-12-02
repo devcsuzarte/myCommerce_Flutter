@@ -60,19 +60,23 @@ class ItemData extends ChangeNotifier {
 
   }
   void registerSale() {
+    bool amountIsAvailable = true;
     for(var item in finishSaleList) {
       if(item.amount! > item.stock!) {
         print('Amount not available');
+        amountIsAvailable = false;
         break;
       } else {
-        db.collection('bill').add({
-          'dateTime': DateTime.now().millisecondsSinceEpoch,
-          'itemsSold': mapItemSoldList,
-          'totalBill': getTotalBillValue(),
-        }).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
         updateStock(item.id!, item.stock! - item.amount!);
         print("DEBUG: Amount: ${item.amount} Stock: ${item.stock}");
       }
+    }
+    if(amountIsAvailable){
+      db.collection('bill').add({
+        'dateTime': DateTime.now().millisecondsSinceEpoch,
+        'itemsSold': mapItemSoldList,
+        'totalBill': getTotalBillValue(),
+      }).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
     }
     finishSaleList = [];
   }
