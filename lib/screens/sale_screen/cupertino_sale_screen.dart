@@ -89,8 +89,21 @@ class SaleListPopup extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                Provider.of<ItemData>(context, listen: false).registerSale();
+                bool wasSale = Provider.of<ItemData>(context, listen: false).registerSale();
+                final snackBar = SnackBar(
+                  content: Text(
+                      wasSale ? 'Venda efetuada com sucesso' : 'Erro ao efetuar venda, quantidade excede o estoque',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  showCloseIcon: true,
+                  backgroundColor: wasSale? Colors.green : Colors.red,
+                );
                 Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
               },
             ),
           ),

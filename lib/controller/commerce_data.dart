@@ -59,7 +59,7 @@ class ItemData extends ChangeNotifier {
     }
 
   }
-  void registerSale() {
+  bool registerSale() {
     bool amountIsAvailable = true;
     for(var item in finishSaleList) {
       if(item.amount! > item.stock!) {
@@ -71,14 +71,19 @@ class ItemData extends ChangeNotifier {
         print("DEBUG: Amount: ${item.amount} Stock: ${item.stock}");
       }
     }
+
     if(amountIsAvailable){
       db.collection('bill').add({
         'dateTime': DateTime.now().millisecondsSinceEpoch,
         'itemsSold': mapItemSoldList,
         'totalBill': getTotalBillValue(),
       }).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
+      finishSaleList = [];
+      return true;
+    } else {
+      finishSaleList = [];
+      return false;
     }
-    finishSaleList = [];
   }
 
   void amountSoldChanged(int index, int amount) {
