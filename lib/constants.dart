@@ -1,9 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 const kPrimaryColor = Color(0xFFD8E2FF);
 const kSecondaryColor = Color(0xFF172E54);
 // #0C183E
 // #4CD0FE
+
+const kCartEmptyAlertDialogTitle = Text('Nenhum item selecionado');
+const kCartEmptyAlertDialogDescription = Text('Selecione itens para prosseguir com a venda');
+const kCartEmptyAlertActionTitle = Text(
+  'Ok',
+  style: TextStyle(
+      color: CupertinoColors.activeBlue
+  ),
+);
 
 const kBoldTextStyle = TextStyle(
   color: Colors.black54,

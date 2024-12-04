@@ -78,10 +78,12 @@ class ItemData extends ChangeNotifier {
         'itemsSold': mapItemSoldList,
         'totalBill': getTotalBillValue(),
       }).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
-      finishSaleList = [];
+      cleanFinishSaleList();
+      notifyListeners();
       return true;
     } else {
-      finishSaleList = [];
+      cleanFinishSaleList();
+      notifyListeners();
       return false;
     }
   }

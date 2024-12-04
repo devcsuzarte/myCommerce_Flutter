@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:mycommerce/constants.dart';
 import 'package:mycommerce/models/bill_model.dart';
 import 'package:mycommerce/models/item_model.dart';
+// import 'package:mycommerce/widgets/alert_dialog/cupertino_alert_dialog.dart';
+// import 'package:mycommerce/widgets/alert_dialog/material_alert_dialog.dart';
+import 'package:mycommerce/widgets/alert_dialog/showCustomAlertDialog.dart';
 import 'package:mycommerce/widgets/confirm_sale_widget/item_sold_list.dart';
 import 'package:mycommerce/widgets/sale_screen_widgets/sale_cell.dart';
 import 'package:mycommerce/widgets/sale_screen_widgets/sale_list.dart';
@@ -29,17 +32,29 @@ class _SaleScreenState extends State<SaleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('Seleção de Itens'),
         actions: [
           IconButton(
             onPressed: () {
-              showModalBottomSheet(
-                  backgroundColor: Colors.white,
-                  enableDrag: true,
-                  showDragHandle: true,
-                  context: context,
-                  builder: (context) => SaleListPopup());
+             if(Provider.of<ItemData>(context, listen: false).finishSaleList.isEmpty){
+               CustomAlertDialog(
+                 alertActionTitle: kCartEmptyAlertDialogTitle,
+                 alertDescription: kCartEmptyAlertDialogDescription,
+                 alertTitle: kCartEmptyAlertActionTitle
+               ).showCustomAlertDialog(context);
+               //showCommerceCupertinoDialog(context);
+             } else {
+               showModalBottomSheet(
+                   backgroundColor: Colors.white,
+                   enableDrag: true,
+                   showDragHandle: true,
+                   context: context,
+                   isScrollControlled: true,
+                   builder: (context) => SaleListPopup()
+               );
+             }
             },
             icon: Icon(CupertinoIcons.cart),
           ),
@@ -69,45 +84,49 @@ class SaleListPopup extends StatelessWidget {
       ),
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.5,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 5,
-            child: ItemSoldList(),
-          ),
-          Expanded(
-            flex: 1,
-            child: MaterialButton(
-              minWidth: MediaQuery.of(context).size.width,
-              color: kSecondaryColor,
-              child: Text(
-                'Concluir',
-                style: TextStyle(
-                  color: kPrimaryColor,
-                  fontSize: 25,
-                ),
-              ),
-              onPressed: () {
-                bool wasSale = Provider.of<ItemData>(context, listen: false).registerSale();
-                final snackBar = SnackBar(
-                  content: Text(
-                      wasSale ? 'Venda efetuada com sucesso' : 'Erro ao efetuar venda, quantidade excede o estoque',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  showCloseIcon: true,
-                  backgroundColor: wasSale? Colors.green : Colors.red,
-                );
-                Navigator.pop(context);
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              },
+      child: Padding(
+        padding:  EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Expanded(
+              flex: 5,
+              child: ItemSoldList(),
             ),
-          ),
-        ],
+            Expanded(
+              flex: 1,
+              child: MaterialButton(
+                minWidth: MediaQuery.of(context).size.width,
+                color: kSecondaryColor,
+                child: Text(
+                  'Concluir',
+                  style: TextStyle(
+                    color: kPrimaryColor,
+                    fontSize: 25,
+                  ),
+                ),
+                onPressed: () {
+                  bool wasSale = Provider.of<ItemData>(context, listen: false).registerSale();
+                  final snackBar = SnackBar(
+                    content: Text(
+                        wasSale ? 'Venda efetuada com sucesso' : 'Erro ao efetuar venda, quantidade excede o estoque',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    showCloseIcon: true,
+                    backgroundColor: wasSale? Colors.green : Colors.red,
+                  );
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
