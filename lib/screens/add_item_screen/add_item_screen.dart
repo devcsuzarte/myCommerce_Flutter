@@ -29,146 +29,151 @@ class _AddItemScreenState extends State<AddItemScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Cadastro de Produto"),
-      ),
-        body:  Form(
-              key: formKey,
-              child: ListView(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 15.0),
-                          child: Text(
-                            'Preencha as informações',
-                            style: TextStyle(
-                              fontSize: 18
-                            ),
-                          ),
-                        ),
-                        Container(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 15.0),
-                                child: TextFormField(
-                                  decoration: kInputDecoration.copyWith(
-                                    labelText: 'Título do Produto',
-                                    hintText: 'MACBOOK AIR M1'
-                                  ),
-                                  textInputAction: TextInputAction.next,
-                                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Insira um título válido';
-                                    } else {
-                                      title = value;
-                                      return null;
-                                    }
-                                  },
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 15.0),
-                                child: TextFormField(
-                                  decoration: kInputDecoration.copyWith(
-                                    labelText: 'Quantidade em estoque',
-                                    hintText: '21',
-                                  ),
-                                  keyboardType: TextInputType.number,
-                                  textInputAction: TextInputAction.next,
-                                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return '*';
-                                    } else {
-                                      stock = int.parse(value);
-                                      return null;
-                                    }
-                                  },
-                                ),
-                              ),
-                              TextFormField(
-                                decoration: kInputDecoration.copyWith(
-                                    labelText: 'Preço por unidade',
-                                    hintText: '5200,00'
-                                ),
-                                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return '*';
-                                  } else {
-                                    price = double.parse(value);
-                                    return null;
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                  Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Cadastro de Produto"),
+        ),
+          body:  Form(
+                key: formKey,
+                child: ListView(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 20.0),
+                            padding: const EdgeInsets.symmetric(vertical: 15.0),
                             child: Text(
-                              'Propriedades do produto',
+                              'Preencha as informações',
                               style: TextStyle(
                                 fontSize: 18
                               ),
                             ),
                           ),
-                          Spacer(),
-                          IconButton(
-                              icon: Icon(
-                                CupertinoIcons.add,
-                                color: kSecondaryColor,
+                          Container(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 15.0),
+                                  child: TextFormField(
+                                    decoration: kInputDecoration.copyWith(
+                                      labelText: 'Título do Produto',
+                                      hintText: 'MACBOOK AIR M1'
+                                    ),
+                                    textInputAction: TextInputAction.next,
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Insira um título válido';
+                                      } else {
+                                        title = value;
+                                        return null;
+                                      }
+                                    },
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 15.0),
+                                  child: TextFormField(
+                                    decoration: kInputDecoration.copyWith(
+                                      labelText: 'Quantidade em estoque',
+                                      hintText: '21',
+                                    ),
+                                    keyboardType: TextInputType.number,
+                                    textInputAction: TextInputAction.next,
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return '*';
+                                      } else {
+                                        stock = int.parse(value);
+                                        return null;
+                                      }
+                                    },
+                                  ),
+                                ),
+                                TextFormField(
+                                  decoration: kInputDecoration.copyWith(
+                                      labelText: 'Preço por unidade',
+                                      hintText: '5200,00'
+                                  ),
+                                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return '*';
+                                    } else {
+                                      price = double.parse(value);
+                                      return null;
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                    Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 20.0),
+                              child: Text(
+                                'Propriedades do produto',
+                                style: TextStyle(
+                                  fontSize: 18
+                                ),
                               ),
-                              onPressed: () {
-                                Provider.of<ItemData>(context, listen: false).addDetail();
-                              }),
-                        ],
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.25,
-                        child: Detaillist(),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 12),
-                    width: double.infinity,
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        foregroundColor: kSecondaryColor,
-                        backgroundColor: kPrimaryColor,
-                      ),
-                        onPressed: () {
-                          final form = formKey.currentState!;
-                          if (form.validate()){
-                            var newItem = Item(
-                                productName: title,
-                                details: Provider.of<ItemData>(context, listen: false).detailsString,
-                                stock: stock,
-                                price: price);
-                            ItemData().registerItem(newItem);
-                            print('Form is valid ${newItem.productName}');
-                          }
-                        },
-                        child: Text('Cadastrar'),
+                            ),
+                            Spacer(),
+                            IconButton(
+                                icon: Icon(
+                                  CupertinoIcons.add,
+                                  color: kSecondaryColor,
+                                ),
+                                onPressed: () {
+                                  Provider.of<ItemData>(context, listen: false).addDetail();
+                                }),
+                          ],
                         ),
-                  ),
-                ],
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.25,
+                          child: Detaillist(),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 12),
+                      width: double.infinity,
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          foregroundColor: kSecondaryColor,
+                          backgroundColor: kPrimaryColor,
+                        ),
+                          onPressed: () {
+                            final form = formKey.currentState!;
+                            if (form.validate()){
+                              var newItem = Item(
+                                  productName: title,
+                                  details: Provider.of<ItemData>(context, listen: false).detailsString,
+                                  stock: stock,
+                                  price: price);
+                              ItemData().registerItem(newItem);
+                              print('Form is valid ${newItem.productName}');
+                            }
+                          },
+                          child: Text('Cadastrar'),
+                          ),
+                    ),
+                  ],
+                ),
               ),
-            ),
+      ),
     ) ;
   }
 }

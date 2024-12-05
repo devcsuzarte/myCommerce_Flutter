@@ -75,57 +75,62 @@ class SaleListPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(15),
-          topRight: Radius.circular(15),
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+          ),
         ),
-      ),
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.5,
-      child: Padding(
-        padding:  EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Expanded(
-              flex: 5,
-              child: ItemSoldList(),
-            ),
-            Expanded(
-              flex: 1,
-              child: MaterialButton(
-                minWidth: MediaQuery.of(context).size.width,
-                color: kSecondaryColor,
-                child: Text(
-                  'Concluir',
-                  style: TextStyle(
-                    color: kPrimaryColor,
-                    fontSize: 25,
-                  ),
-                ),
-                onPressed: () {
-                  bool wasSale = Provider.of<ItemData>(context, listen: false).registerSale();
-                  final snackBar = SnackBar(
-                    content: Text(
-                        wasSale ? 'Venda efetuada com sucesso' : 'Erro ao efetuar venda, quantidade excede o estoque',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    showCloseIcon: true,
-                    backgroundColor: wasSale? Colors.green : Colors.red,
-                  );
-                  Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                },
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height * 0.65,
+        child: Padding(
+          padding:  EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                flex: 5,
+                child: ItemSoldList(),
               ),
-            ),
-          ],
+              Expanded(
+                flex: 1,
+                child: MaterialButton(
+                  minWidth: MediaQuery.of(context).size.width,
+                  color: kSecondaryColor,
+                  child: Text(
+                    'Concluir',
+                    style: TextStyle(
+                      color: kPrimaryColor,
+                      fontSize: 25,
+                    ),
+                  ),
+                  onPressed: () {
+                    bool wasSale = Provider.of<ItemData>(context, listen: false).registerSale();
+                    final snackBar = SnackBar(
+                      content: Text(
+                          wasSale ? 'Venda efetuada com sucesso' : 'Erro ao efetuar venda, quantidade excede o estoque',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      showCloseIcon: true,
+                      backgroundColor: wasSale? Colors.green : Colors.red,
+                    );
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
