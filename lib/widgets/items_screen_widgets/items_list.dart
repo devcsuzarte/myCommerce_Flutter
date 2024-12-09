@@ -9,9 +9,20 @@ import 'package:mycommerce/constants.dart';
 
 final db = FirebaseFirestore.instance;
 
-class ItemsList extends StatelessWidget {
-  const ItemsList({super.key});
+class ItemsList extends StatefulWidget {
+   const ItemsList({
+     super.key,
+     required this.searchBarText,
+  });
 
+   final String searchBarText;
+
+  @override
+  State<ItemsList> createState() => _ItemsListState();
+}
+
+class _ItemsListState extends State<ItemsList> {
+  //final String searchBarText;
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -23,27 +34,11 @@ class ItemsList extends StatelessWidget {
             );
           }
           final items = snapshot.data?.docs;
-          final List<Item> itemList = [];
-          for(var item in items!) {
-            final productName = item['productName'];
-            final price = item['price'];
-            final stock = item['stock'];
-            final details = item['details'];
-            final id = item.id;
-
-            final itemRecived = Item(
-              productName: productName,
-              price: price,
-              stock: stock,
-              details: details,
-              id: id,
-            );
-            itemList.add(itemRecived);
-          }
-          Provider.of<ItemData>(context, listen: false).itemsList = itemList;
+          print(widget.searchBarText);
+          Provider.of<ItemData>(context, listen: false).convertItemList(items!, widget.searchBarText);
           return ListView.separated(
             itemBuilder: (context, index) {
-              final item = itemList[index];
+              final item = Provider.of<ItemData>(context, listen: false).itemsList[index];
               final TextEditingController priceTextController = TextEditingController();
               final TextEditingController stockTextController = TextEditingController();
               priceTextController.text = item.price.toString();
@@ -175,7 +170,7 @@ class ItemsList extends StatelessWidget {
             separatorBuilder: (context, index) {
               return Divider();
             },
-            itemCount: itemList.length,
+            itemCount: Provider.of<ItemData>(context, listen: false).itemsList.length,
           );
         }
     );

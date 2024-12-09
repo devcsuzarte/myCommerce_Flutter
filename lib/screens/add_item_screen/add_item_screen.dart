@@ -159,7 +159,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                             final form = formKey.currentState!;
                             if (form.validate()){
                               var newItem = Item(
-                                  productName: title,
+                                  productName: title.toUpperCase(),
                                   details: Provider.of<ItemData>(context, listen: false).detailsString,
                                   stock: stock,
                                   price: price);

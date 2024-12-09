@@ -16,6 +16,53 @@ class ItemData extends ChangeNotifier {
     finishSaleList = [];
     cleanCheckedItems();
   }
+
+  String searchText = '';
+
+  void getItemFromFirebase() {
+    db.collection("items").get().then(
+          (querySnapshot) {
+        print("Successfully completed");
+        for (var docSnapshot in querySnapshot.docs) {
+          print('${docSnapshot.id} => ${docSnapshot.data()}');
+        }
+        convertItemList(querySnapshot.docs, '');
+      },
+      onError: (e) => print("Error completing: $e"),
+    );
+  }
+
+  void convertItemList(List<QueryDocumentSnapshot<Map<String, dynamic>>> items, search){
+    itemsList = [];
+
+    for(var item in items) {
+      final productName = item['productName'];
+      final price = item['price'];
+      final stock = item['stock'];
+      final details = item['details'];
+      final id = item.id;
+
+      final itemRecived = Item(
+        productName: productName,
+        price: price,
+        stock: stock,
+        details: details,
+        id: id,
+      );
+      itemsList.add(itemRecived);
+    }
+    if(search.isNotEmpty){
+      print('SEARCH: $search');
+      List<Item> searchList = [];
+
+      for(Item item in itemsList) {
+        if(item.productName!.contains(search.toUpperCase())) {
+          searchList.add(item);
+        }
+      }
+      itemsList = searchList;
+    }
+  }
   void deleteItem(String docID) {
     db.collection('items').doc(docID).delete().then(
           (doc) => print("Document deleted"),
@@ -157,14 +204,14 @@ class ItemData extends ChangeNotifier {
 
   String getDetailsToItemCell(List<dynamic> itemDetails) {
     String details = itemDetails.reduce((value, element) => value + " | " + element);
-    print("DEBUG: DETAILS $details");
+   // print("DEBUG: DETAILS $details");
     return details;
   }
   List<String> get detailsString {
     List<String> details = [];
 
     for (var detail in detailList) {
-      details.add('${detail.propertyTextController.text}: ${detail.descriptionTextController.text}');
+      details.add('${detail.propertyTextController.text}: ${detail.descriptionTextController.text}'.toUpperCase());
     }
     return details;
   }
