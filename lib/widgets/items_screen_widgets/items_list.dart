@@ -12,10 +12,7 @@ final db = FirebaseFirestore.instance;
 class ItemsList extends StatefulWidget {
    const ItemsList({
      super.key,
-     required this.searchBarText,
   });
-
-   final String searchBarText;
 
   @override
   State<ItemsList> createState() => _ItemsListState();
@@ -25,17 +22,8 @@ class _ItemsListState extends State<ItemsList> {
   //final String searchBarText;
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: db.collection("items").snapshots(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return Center(
-              child: Text('No data'),
-            );
-          }
-          final items = snapshot.data?.docs;
-          print(widget.searchBarText);
-          Provider.of<ItemData>(context, listen: false).convertItemList(items!, widget.searchBarText);
+    return Consumer<ItemData>(
+        builder: (context, productData, child){
           return ListView.separated(
             itemBuilder: (context, index) {
               final item = Provider.of<ItemData>(context, listen: false).itemsList[index];

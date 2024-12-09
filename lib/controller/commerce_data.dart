@@ -19,56 +19,54 @@ class ItemData extends ChangeNotifier {
 
   String searchText = '';
 
-  void getItemFromFirebase() {
-    db.collection("items").get().then(
+  void getItemFromFirebase(String search) async {
+    List<Item> itemsListSnapshot = [];
+    await db.collection("items").get().then(
           (querySnapshot) {
         print("Successfully completed");
-        for (var docSnapshot in querySnapshot.docs) {
-          print('${docSnapshot.id} => ${docSnapshot.data()}');
+        for (var item in querySnapshot.docs) {
+          print('${item.id} => ${item.data()}');
+          final productName = item['productName'];
+          final price = item['price'];
+          final stock = item['stock'];
+          final details = item['details'];
+          final id = item.id;
+
+          final itemRecived = Item(
+            productName: productName,
+            price: price,
+            stock: stock,
+            details: details,
+            id: id,
+          );
+          itemsListSnapshot.add(itemRecived);
         }
-        convertItemList(querySnapshot.docs, '');
       },
       onError: (e) => print("Error completing: $e"),
     );
-  }
-
-  void convertItemList(List<QueryDocumentSnapshot<Map<String, dynamic>>> items, search){
-    itemsList = [];
-
-    for(var item in items) {
-      final productName = item['productName'];
-      final price = item['price'];
-      final stock = item['stock'];
-      final details = item['details'];
-      final id = item.id;
-
-      final itemRecived = Item(
-        productName: productName,
-        price: price,
-        stock: stock,
-        details: details,
-        id: id,
-      );
-      itemsList.add(itemRecived);
-    }
     if(search.isNotEmpty){
       print('SEARCH: $search');
       List<Item> searchList = [];
 
-      for(Item item in itemsList) {
+      for(Item item in itemsListSnapshot) {
         if(item.productName!.contains(search.toUpperCase())) {
           searchList.add(item);
         }
       }
       itemsList = searchList;
+      notifyListeners();
+    } else {
+      itemsList = itemsListSnapshot;
     }
+    notifyListeners();
   }
+
   void deleteItem(String docID) {
     db.collection('items').doc(docID).delete().then(
           (doc) => print("Document deleted"),
       onError: (e) => print("Error updating document $e"),
     );
-    notifyListeners();
+    getItemFromFirebase('');
   }
 
   void updateItem(String docID, int newStock, double newPrice){
@@ -79,7 +77,7 @@ class ItemData extends ChangeNotifier {
             (value) => print("DocumentSnapshot successfully updated!"),
         onError: (e) => print("Error updating document $e"));
 
-    notifyListeners();
+    getItemFromFirebase('');
   }
 
   void updateStock(String docID, int newStock) {
@@ -89,6 +87,7 @@ class ItemData extends ChangeNotifier {
     }).then(
             (value) => print("DocumentSnapshot successfully updated!"),
         onError: (e) => print("Error updating document $e"));
+    getItemFromFirebase('');
 
   }
 
@@ -101,6 +100,7 @@ class ItemData extends ChangeNotifier {
         'price': newItem.price,
         'stock': newItem.stock,
       }).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
+      getItemFromFirebase('');
     } catch (e) {
       print('DEBUG: Erro to register item $e');
     }

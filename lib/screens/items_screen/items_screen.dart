@@ -16,10 +16,16 @@ class ItemsScreen extends StatefulWidget {
 
 class _ItemsScreenState extends State<ItemsScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print('DEBUG ITEMSCREEN APPEARS');
+    Provider.of<ItemData>(context, listen: false).getItemFromFirebase('');
+  }
+  @override
 
   Widget build(BuildContext context) {
     //TextEditingController searchBarTextController = TextEditingController();
-    ItemsList itemData = ItemsList(searchBarText: '');
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -42,7 +48,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
                   //controller: searchBarTextController,
                   decoration: kSearchInputDecoration,
                   onChanged: (text) {
-                    Provider.of<ItemData>(context, listen: true).searchText = text;
+                    Provider.of<ItemData>(context, listen: false).getItemFromFirebase(text);
                   },
                 ),
               ),
@@ -61,7 +67,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
                       size: 32,
                       color: kSecondaryColor,),
                   ),
-                  body: itemData
+                  body: ItemsList()
                 ),
               ),
             ),
