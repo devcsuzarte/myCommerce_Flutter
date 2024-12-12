@@ -18,6 +18,16 @@ class ItemData extends ChangeNotifier {
   String searchText = '';
   bool saleIsEnable = false;
 
+  void toggleSaleState() {
+    if(saleIsEnable) {
+      saleIsEnable = false;
+      cleanFinishSaleList();
+    } else {
+      saleIsEnable = true;
+    }
+    notifyListeners();
+  }
+
   void getItemFromFirebase(String search) async {
     List<Item> itemsListSnapshot = [];
     await db.collection("items").get().then(

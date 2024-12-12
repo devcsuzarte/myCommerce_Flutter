@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:mycommerce/controller/commerce_data.dart';
 import 'package:mycommerce/models/item_model.dart';
 import 'package:provider/provider.dart';
+import '../sale_screen_widgets/sale_cell.dart';
+import '../sale_screen_widgets/sale_list.dart';
 import 'item_cell.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mycommerce/constants.dart';
@@ -149,8 +151,11 @@ class _ItemsListState extends State<ItemsList> {
                   );
                   print("ID: ${item.id}");
                 },
-                child: ItemCell(
+                child: Provider.of<ItemData>(context, listen: false).saleIsEnable ? ItemCell(
                   item: item,
+                ) : SaleCell(
+                  item: item,
+                  index: index,
                 ),
               );
             },
