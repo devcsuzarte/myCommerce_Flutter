@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:mycommerce/controller/commerce_data.dart';
 import 'package:mycommerce/models/item_model.dart';
 import 'package:mycommerce/constants.dart';
+import 'package:provider/provider.dart';
+import 'package:mycommerce/controller/commerce_data.dart';
 
 class ItemCell extends StatelessWidget {
   const ItemCell({
@@ -11,8 +13,6 @@ class ItemCell extends StatelessWidget {
   });
 
   final Item item;
-
-
   @override
   Widget build(BuildContext context) {
     final itemData = ItemData();
@@ -24,8 +24,11 @@ class ItemCell extends StatelessWidget {
           flex: 2,
             child: CircleAvatar(
               minRadius: 28,
-              child: Icon(
+              child: Provider.of<ItemData>(context, listen: false).saleIsEnable ? Icon(
                 CupertinoIcons.archivebox,
+                size: 35,
+              ) : Icon(
+                CupertinoIcons.archivebox_fill,
                 size: 35,
               ),
             ),

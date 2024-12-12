@@ -31,9 +31,8 @@ class _ItemsListState extends State<ItemsList> {
               final TextEditingController stockTextController = TextEditingController();
               priceTextController.text = item.price.toString();
               stockTextController.text = item.stock.toString();
-              return MaterialButton(
-                padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 0.0),
-                onPressed: () {
+              return GestureDetector(
+                onLongPress: () {
                   showModalBottomSheet(
                       enableDrag: true,
                       showDragHandle: true,

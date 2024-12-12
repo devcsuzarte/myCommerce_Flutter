@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:mycommerce/models/detail_model.dart';
 import 'package:mycommerce/models/item_model.dart';
@@ -18,6 +16,7 @@ class ItemData extends ChangeNotifier {
   }
 
   String searchText = '';
+  bool saleIsEnable = false;
 
   void getItemFromFirebase(String search) async {
     List<Item> itemsListSnapshot = [];

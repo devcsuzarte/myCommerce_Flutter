@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mycommerce/constants.dart';
 import 'package:mycommerce/models/bill_model.dart';
 import 'items_sold_list.dart';
@@ -14,6 +15,7 @@ class BillCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String formattedDate = DateFormat.yMMMEd().format(sale.dateTime);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -42,7 +44,7 @@ class BillCell extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Text('${sale.dateTime.day}/${sale.dateTime.month}/${sale.dateTime.year} - ${sale.dateTime.hour}:${sale.dateTime.minute}',
+                    child: Text('${formattedDate}',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,

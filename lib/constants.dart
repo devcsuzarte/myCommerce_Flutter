@@ -66,8 +66,7 @@ const kSearchInputDecoration = InputDecoration(
     color: Colors.grey,
   ),
   prefixIcon: Icon(CupertinoIcons.search),
-  contentPadding:
-  EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
   border: OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),

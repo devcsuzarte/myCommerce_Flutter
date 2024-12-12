@@ -25,8 +25,8 @@ class _ItemsScreenState extends State<ItemsScreen> {
   @override
 
   Widget build(BuildContext context) {
-    //TextEditingController searchBarTextController = TextEditingController();
-    return GestureDetector(
+    TextEditingController searchBarTextController = TextEditingController();
+    return InkWell(
       onTap: () {
         FocusScope.of(context).unfocus();
       },
@@ -45,7 +45,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
               child: Padding(
                 padding: const EdgeInsets.only(left: 8.0, right:  8.0, bottom: 10),
                 child: TextField(
-                  //controller: searchBarTextController,
+                  controller: searchBarTextController,
                   decoration: kSearchInputDecoration,
                   onChanged: (text) {
                     Provider.of<ItemData>(context, listen: false).getItemFromFirebase(text);
@@ -59,8 +59,9 @@ class _ItemsScreenState extends State<ItemsScreen> {
                   floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
                   floatingActionButton: FloatingActionButton(
                     onPressed: () {
-                      Navigator.push(context, CupertinoPageRoute(builder: (context) => SaleScreen())
-                      );
+                      // Provider.of<ItemData>(context, listen: false).saleIsEnable = true;
+                     Navigator.push(context, CupertinoPageRoute(builder: (context) => SaleScreen())
+                     );
                     },
                     child: Icon(
                       CupertinoIcons.money_dollar,
