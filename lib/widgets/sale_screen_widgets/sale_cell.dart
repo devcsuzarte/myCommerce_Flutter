@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mycommerce/constants.dart';
 import 'package:mycommerce/controller/commerce_data.dart';
 import 'package:provider/provider.dart';
-
 import '../../models/item_model.dart';
+
 
 class SaleCell extends StatelessWidget {
   const SaleCell({
@@ -17,20 +18,59 @@ class SaleCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoListTile(
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('${item.productName}', style: kBoldMediumTextStyle,),
-          Text('Preço: R\$${item.price}'),
-          Text('Estoque: ${item.stock}'),
-          Text('Detalhes: ${ItemData().getDetailsToItemCell(item.details!)}', maxLines: 3,),
-        ],
-      ),
-      trailing: CupertinoCheckbox(
-          value: Provider.of<ItemData>(context).itemsList[index].isSelected,
-          onChanged: (value) => Provider.of<ItemData>(context, listen: false).checkBoxPressed(index),
-      ),
+    final itemData = ItemData();
+    itemData.getDetailsToItemCell(item.details!);
+     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Flexible(
+          flex: 2,
+          child: CircleAvatar(
+            minRadius: 28,
+            child: Icon(
+              CupertinoIcons.archivebox,
+              size: 35,
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 7,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('${item.productName}',
+                  style: kBoldTextStyle
+              ),
+              Text('R\$ ${item.price?.toStringAsFixed(2)}',
+                style: kBoldMediumTextStyle,
+              ),
+              Text('Estoque: ${item.stock}x',
+                style: kNormalTextStyle,
+              ),
+              Text('${itemData.getDetailsToItemCell(item.details!)}',
+                style: kNormalTextStyle,
+              ),
+            ],
+          ),
+        ),
+        Flexible(
+          flex: 2,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              IconButton(
+                  onPressed: () {
+                    Provider.of<ItemData>(context, listen: false).checkBoxPressed(index);
+                  },
+                  icon: Icon(
+                      CupertinoIcons.plus_circle_fill,
+                    color: Colors.green,
+                  ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

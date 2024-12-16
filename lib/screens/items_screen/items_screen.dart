@@ -61,7 +61,18 @@ class _ItemsScreenState extends State<ItemsScreen> {
                   );
                 }
               },
-              icon: Icon(CupertinoIcons.cart),
+              icon: Icon(CupertinoIcons.cube_box_fill),
+            ),
+            IconButton(
+              onPressed: () {
+                Provider.of<ItemData>(context, listen: false).toggleSaleState();
+              },
+              icon: Icon(CupertinoIcons.cart_fill),
+            ),
+            IconButton(
+              onPressed: () {
+              },
+              icon: Icon(CupertinoIcons.trash),
             ),
           ],
           backgroundColor: kSecondaryColor,
@@ -84,17 +95,6 @@ class _ItemsScreenState extends State<ItemsScreen> {
         ),
             body: SafeArea(
                 child: Scaffold(
-                  floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
-                  floatingActionButton: FloatingActionButton(
-                    onPressed: () {
-                      Provider.of<ItemData>(context, listen: false).toggleSaleState();
-                     // Navigator.push(context, CupertinoPageRoute(builder: (context) => SaleScreen()));
-                    },
-                    child: Icon(
-                      CupertinoIcons.money_dollar,
-                      size: 32,
-                      color: kSecondaryColor,),
-                  ),
                   body: ItemsList()
                 ),
               ),

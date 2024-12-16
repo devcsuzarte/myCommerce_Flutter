@@ -213,7 +213,6 @@ class ItemData extends ChangeNotifier {
 
   String getDetailsToItemCell(List<dynamic> itemDetails) {
     String details = itemDetails.reduce((value, element) => value + " | " + element);
-   // print("DEBUG: DETAILS $details");
     return details;
   }
   List<String> get detailsString {
@@ -226,12 +225,23 @@ class ItemData extends ChangeNotifier {
   }
 
   void addDetail() {
-    detailList.add(Detail('Propriedade', 'Descrição', TextEditingController(), TextEditingController()));
+    detailList.add(
+        Detail(
+            'Propriedade', 'Descrição',
+            TextEditingController(),
+            TextEditingController()
+        ),
+    );
     notifyListeners();
   }
 
   void removeDetail(int index) {
     detailList.removeAt(index);
+    notifyListeners();
+  }
+
+  void removeItemFromFinishSale(int index) {
+    finishSaleList.removeAt(index);
     notifyListeners();
   }
 

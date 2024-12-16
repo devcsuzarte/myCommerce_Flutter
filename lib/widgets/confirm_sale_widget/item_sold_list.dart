@@ -26,12 +26,19 @@ class ItemSoldList extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          IconButton(
+                              onPressed: () {
+                                Provider.of<ItemData>(context, listen: false).removeItemFromFinishSale(index);
+                              },
+                              icon: Icon(CupertinoIcons.clear_circled_solid)
+                          ),
                           Text('${item.productName}',
                             style: TextStyle(
                               color: kSecondaryColor,
                               fontWeight: FontWeight.bold
                             ),
                           ),
+                          Spacer(),
                           SizedBox(
                             height: 50,
                             width: 50,
