@@ -156,12 +156,10 @@ class _ItemsListState extends State<ItemsList> {
                         );
                         print("ID: ${item.id}");
                       },
-                      child: Provider.of<ItemData>(context, listen: false).saleIsEnable ? ItemCell(
-                        item: item,
-                      ) : SaleCell(
+                      child: ItemCell(
                         item: item,
                         index: index,
-                      ),
+                      )
                     );
                   },
                   separatorBuilder: (context, index) {

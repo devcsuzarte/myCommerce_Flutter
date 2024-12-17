@@ -65,12 +65,6 @@ class _ItemsScreenState extends State<ItemsScreen> {
             ),
             IconButton(
               onPressed: () {
-                Provider.of<ItemData>(context, listen: false).toggleSaleState();
-              },
-              icon: Icon(CupertinoIcons.cart_fill),
-            ),
-            IconButton(
-              onPressed: () {
               },
               icon: Icon(CupertinoIcons.trash),
             ),

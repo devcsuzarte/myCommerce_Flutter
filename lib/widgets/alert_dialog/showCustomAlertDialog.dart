@@ -15,7 +15,7 @@ class CustomAlertDialog {
   });
 
   void showCustomAlertDialog(BuildContext context) {
-    if(Platform.isAndroid) {
+    if(Platform.isIOS) {
       _cupertinoDialog(context);
     } else {
       _materialDialog(context);
