@@ -65,6 +65,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
             ),
             IconButton(
               onPressed: () {
+                Provider.of<ItemData>(context, listen: false).cleanFinishSaleList();
               },
               icon: Icon(CupertinoIcons.trash),
             ),
@@ -79,7 +80,13 @@ class _ItemsScreenState extends State<ItemsScreen> {
                 padding: const EdgeInsets.only(left: 8.0, right:  8.0, bottom: 10),
                 child: TextField(
                   controller: searchBarTextController,
-                  decoration: kSearchInputDecoration,
+                  decoration: kSearchInputDecoration.copyWith(
+                    suffix: InkWell(
+                        onTap: () {
+                          Provider.of<ItemData>(context, listen: false).getItemFromFirebase('');                        },
+                        child: Icon(CupertinoIcons.clear_circled),
+                    ),
+                  ),
                   onChanged: (text) {
                     Provider.of<ItemData>(context, listen: false).getItemFromFirebase(text);
                   },

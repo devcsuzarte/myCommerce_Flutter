@@ -22,7 +22,8 @@ class MyApp extends StatelessWidget {
       create: (context) => ItemData(),
       child: MaterialApp(
         title: 'Flutter Demo',
-        home: isAuth? const HomeScreen() : LoginScreen(),
+        home: const HomeScreen(),
+       // home: isAuth? const HomeScreen() : LoginScreen(),
       ),
     );
   }

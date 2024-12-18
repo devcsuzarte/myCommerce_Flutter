@@ -10,11 +10,6 @@ class ItemData extends ChangeNotifier {
   List<Item> finishSaleList = [];
   List<Detail> detailList = [Detail('Propriedade', 'Descrição', TextEditingController(), TextEditingController())];
 
-  void cleanFinishSaleList() {
-    finishSaleList = [];
-    cleanCheckedItems();
-  }
-
   String searchText = '';
   bool saleIsEnable = false;
 
@@ -179,6 +174,11 @@ class ItemData extends ChangeNotifier {
       itemsSold.add(itemToBillList);
     }
     return itemsSold;
+  }
+
+  void cleanFinishSaleList() {
+    finishSaleList = [];
+    cleanCheckedItems();
   }
 
   void cleanCheckedItems(){
