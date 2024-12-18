@@ -4,6 +4,7 @@ import 'package:mycommerce/constants.dart';
 import 'package:mycommerce/controller/commerce_data.dart';
 import 'package:mycommerce/models/detail_model.dart';
 import 'package:mycommerce/models/item_model.dart';
+import 'package:mycommerce/widgets/add_item_widgets/add_detail.dart';
 import 'package:mycommerce/widgets/detail_list/detailList.dart';
 import 'package:mycommerce/widgets/navigation_bar/appbar_cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -127,17 +128,9 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                 ),
                               ),
                             ),
-                            Spacer(),
-                            IconButton(
-                                icon: Icon(
-                                  CupertinoIcons.add,
-                                  color: kSecondaryColor,
-                                ),
-                                onPressed: () {
-                                  Provider.of<ItemData>(context, listen: false).addDetail();
-                                }),
                           ],
                         ),
+                        AddDetail(),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.25,
                           child: Detaillist(),

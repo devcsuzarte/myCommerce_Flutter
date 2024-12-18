@@ -8,7 +8,7 @@ class ItemData extends ChangeNotifier {
 
   List<Item> itemsList = [];
   List<Item> finishSaleList = [];
-  List<Detail> detailList = [Detail('Propriedade', 'Descrição', TextEditingController(), TextEditingController())];
+  List<Detail> detailList = [];
 
   String searchText = '';
   bool saleIsEnable = false;
@@ -179,6 +179,7 @@ class ItemData extends ChangeNotifier {
   void cleanFinishSaleList() {
     finishSaleList = [];
     cleanCheckedItems();
+    notifyListeners();
   }
 
   void cleanCheckedItems(){
@@ -219,17 +220,27 @@ class ItemData extends ChangeNotifier {
     List<String> details = [];
 
     for (var detail in detailList) {
-      details.add('${detail.propertyTextController.text}: ${detail.descriptionTextController.text}'.toUpperCase());
+      details.add('${detail.property}: ${detail.description}'.toUpperCase());
     }
     return details;
   }
 
-  void addDetail() {
+  // void addDetail() {
+  //   detailList.add(
+  //       Detail(
+  //           'Propriedade', 'Descrição',
+  //           TextEditingController(),
+  //           TextEditingController()
+  //       ),
+  //   );
+  //   notifyListeners();
+  // }
+
+  void addDetail(String propertyText, descriptionText) {
     detailList.add(
         Detail(
-            'Propriedade', 'Descrição',
-            TextEditingController(),
-            TextEditingController()
+          propertyText,
+          descriptionText,
         ),
     );
     notifyListeners();

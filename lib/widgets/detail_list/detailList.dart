@@ -31,28 +31,14 @@ class Detaillist extends StatelessWidget {
                     ),
                     Flexible(
                       flex: 3,
-                      child: TextFormField(
-                        textInputAction: TextInputAction.next,
-                        controller: detail.propertyTextController,
-                        decoration: kInputDecoration.copyWith(
-                          labelText: 'Propriedade',
-                          hintText: 'Ex: Cor'
-                        ),
-                      ),
+                      child: Text(detail.property),
                     ),
                     SizedBox(
                       width: 10,
                     ),
                     Flexible(
                       flex: 3,
-                      child: TextFormField(
-                        textInputAction: TextInputAction.next,
-                        controller: detail.descriptionTextController,
-                        decoration: kInputDecoration.copyWith(
-                            labelText: 'Valor',
-                            hintText: 'Ex: Preto'
-                        ),
-                      ),
+                      child: Text(detail.description),
                     ),
                   ],
                 );
