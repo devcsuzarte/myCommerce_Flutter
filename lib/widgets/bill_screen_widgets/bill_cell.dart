@@ -15,7 +15,8 @@ class BillCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String formattedDate = DateFormat.yMMMEd().format(sale.dateTime);
+    //String formattedDate = DateFormat('dMy').format(sale.dateTime);
+    String formattedDate = DateFormat("d 'de' MMM 'de' y", "pt_BR").format(sale.dateTime);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(

@@ -83,7 +83,10 @@ class _ItemsScreenState extends State<ItemsScreen> {
                   decoration: kSearchInputDecoration.copyWith(
                     suffix: InkWell(
                         onTap: () {
-                          Provider.of<ItemData>(context, listen: false).getItemFromFirebase('');                        },
+                          searchBarTextController.text = '';
+                          FocusScope.of(context).unfocus();
+                          Provider.of<ItemData>(context, listen: false).getItemFromFirebase('');
+                          },
                         child: Icon(CupertinoIcons.clear_circled),
                     ),
                   ),
