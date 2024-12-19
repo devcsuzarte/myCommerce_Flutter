@@ -18,28 +18,24 @@ class Detaillist extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Expanded(
-                        child: CupertinoButton(
-                            child: Icon(
-                              CupertinoIcons.trash,
-                              color: Colors.red,
-                            ),
-                            onPressed: () {
-                              Provider.of<ItemData>(context, listen: false).removeDetail(index);
-                              print('Remove detail pressed');
-                            })
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10.0),
+                          child: Icon(CupertinoIcons.arrow_down_right_square_fill),
+                        ),
+                        Text('${detail.property} : ${detail.description}'),
+                      ],
                     ),
-                    Flexible(
-                      flex: 3,
-                      child: Text(detail.property),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Flexible(
-                      flex: 3,
-                      child: Text(detail.description),
-                    ),
+                    IconButton(
+                        icon: Icon(
+                          CupertinoIcons.trash,
+                          color: Colors.red,
+                        ),
+                        onPressed: () {
+                          Provider.of<ItemData>(context, listen: false).removeDetail(index);
+                          print('Remove detail pressed');
+                        }),
                   ],
                 );
               },

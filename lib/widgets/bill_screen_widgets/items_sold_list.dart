@@ -24,10 +24,11 @@ class ItemsSoldList extends StatelessWidget {
                 Text('x${item.amount} '),
                 Text('${item.productName}'),
                 Spacer(),
-                Text('R\$${item.price?.toStringAsFixed(2)}'),
+                Text('${item.price?.toStringAsFixed(2)} R\$'),
               ],
             ),
             Divider(
+              thickness: 0.5,
               color: kSecondaryColor,
             )
           ],

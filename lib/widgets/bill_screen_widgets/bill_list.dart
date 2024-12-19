@@ -16,7 +16,7 @@ class BillList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: db.collection("bill").snapshots(),
+        stream: db.collection("bill").orderBy('dateTime', descending: true).snapshots(),
         builder: (context, snapshot) {
           if(!snapshot.hasData) {
             return Center(
@@ -38,12 +38,15 @@ class BillList extends StatelessWidget {
             );
             billsList.add(billRecived);
           }
-          return ListView.builder(
+          return ListView.separated(
               itemBuilder: (context, index) {
                 final bill = billsList[index];
                 return BillCell(sale: bill);
               },
               itemCount: billsList.length,
+            separatorBuilder: (context, index) {
+                return Divider();
+            },
           );
         }
     );
