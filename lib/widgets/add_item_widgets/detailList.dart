@@ -4,8 +4,8 @@ import 'package:mycommerce/controller/commerce_data.dart';
 import 'package:provider/provider.dart';
 import 'package:mycommerce/constants.dart';
 
-class Detaillist extends StatelessWidget {
-  const Detaillist({super.key});
+class DetailList extends StatelessWidget {
+  const DetailList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class Detaillist extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(right: 10.0),
-                          child: Icon(CupertinoIcons.arrow_down_right_square_fill),
+                          child: Icon(Icons.info_outline),
                         ),
                         Text('${detail.property} : ${detail.description}'),
                       ],

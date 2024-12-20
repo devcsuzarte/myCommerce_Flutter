@@ -5,7 +5,7 @@ import 'package:mycommerce/controller/commerce_data.dart';
 import 'package:mycommerce/models/detail_model.dart';
 import 'package:mycommerce/models/item_model.dart';
 import 'package:mycommerce/widgets/add_item_widgets/add_detail.dart';
-import 'package:mycommerce/widgets/detail_list/detailList.dart';
+import 'package:mycommerce/widgets/add_item_widgets/detailList.dart';
 import 'package:mycommerce/widgets/navigation_bar/appbar_cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
@@ -133,7 +133,10 @@ class _AddItemScreenState extends State<AddItemScreen> {
                         AddDetail(),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.25,
-                          child: Detaillist(),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: DetailList(),
+                          ),
                         ),
                       ],
                     ),

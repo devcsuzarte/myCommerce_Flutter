@@ -33,6 +33,10 @@ class MyApp extends StatelessWidget {
         supportedLocales: [
           Locale('pt', 'BR'), // English
         ],
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF426A8C)),
+          useMaterial3: true,
+        ),
         title: 'Flutter Demo',
         home: const HomeScreen(),
        // home: isAuth? const HomeScreen() : LoginScreen(),
