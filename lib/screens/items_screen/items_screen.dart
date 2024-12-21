@@ -24,7 +24,9 @@ class _ItemsScreenState extends State<ItemsScreen> {
     // TODO: implement initState
     super.initState();
     print('DEBUG ITEMSCREEN APPEARS');
+    //print('USER UID: ${Provider.of<ItemData>(context, listen: false).dbCommerceUID}');
     Provider.of<ItemData>(context, listen: false).getItemFromFirebase('');
+
   }
   @override
 

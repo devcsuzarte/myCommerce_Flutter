@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycommerce/controller/commerce_data.dart';
 import 'package:mycommerce/screens/register_screen/register_screen.dart';
 import 'package:mycommerce/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mycommerce/screens/home_screen/home_screen.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -95,6 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 try {
                                   final user = await _auth.signInWithEmailAndPassword(email: email, password: password);
                                   if(user != null){
+                                    //Provider.of<ItemData>(context, listen: false).dbCommerceUID = user.user!.uid;
                                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
                                   }
                                 } catch (e) {

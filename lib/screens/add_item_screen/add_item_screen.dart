@@ -36,7 +36,12 @@ class _AddItemScreenState extends State<AddItemScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Cadastro de Produto"),
+          title: Text("Cadastro de Produto",
+            style: TextStyle(
+              color: Colors.white
+            ),
+          ),
+          backgroundColor: kSecondaryColor,
         ),
           body:  Form(
                 key: formKey,
@@ -148,8 +153,8 @@ class _AddItemScreenState extends State<AddItemScreen> {
                       width: double.infinity,
                       child: TextButton(
                         style: TextButton.styleFrom(
-                          foregroundColor: kSecondaryColor,
-                          backgroundColor: kPrimaryColor,
+                          foregroundColor: kPrimaryColor,
+                          backgroundColor: kSecondaryColor,
                         ),
                           onPressed: () {
                             final form = formKey.currentState!;

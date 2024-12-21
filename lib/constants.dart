@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-const kPrimaryColor = Color(0xFF403E26);
-const kSecondaryColor = Color(0xFF88AABF);
+const kPrimaryColor = Colors.white;
+const kSecondaryColor = Color(0xFF4A90E2);
 // #0C183E
 // #4CD0FE
 
@@ -47,12 +47,12 @@ const kInputDecoration = InputDecoration(
   ),
   enabledBorder: OutlineInputBorder(
     borderSide:
-    BorderSide(color: kPrimaryColor, width: 1.0),
+    BorderSide(color: kSecondaryColor, width: 1.5),
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
   focusedBorder: OutlineInputBorder(
     borderSide:
-    BorderSide(color: kSecondaryColor,width: 2.0),
+    BorderSide(color: kSecondaryColor,width: 2.5),
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
 );
