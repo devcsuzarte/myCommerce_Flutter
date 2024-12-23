@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: TextButton.icon(
                               style: TextButton.styleFrom(
                                 foregroundColor: Colors.white,
-                                backgroundColor: Color(0xFF139C82),
+                                backgroundColor: Color(0xFF62CFE7),
                               ),
                               onPressed: () async {
                                 try {
@@ -119,7 +119,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 }, child: Text(
                                 'Cadastre-se',
                                 style: TextStyle(
-                                  color: Color(0xFF139C82),
+                                  fontWeight: FontWeight.bold,
+                                  color: kSecondaryColor,
                                 ),
                               ),
                               ),

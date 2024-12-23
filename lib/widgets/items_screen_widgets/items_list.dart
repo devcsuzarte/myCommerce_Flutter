@@ -26,7 +26,9 @@ class _ItemsListState extends State<ItemsList> {
   @override
   Widget build(BuildContext context) {
     if(Provider.of<ItemData>(context, listen: false).itemsList.isEmpty) {
-      return Text('no data');
+      return Center(
+          child: Text('Nenhum item encontrado'),
+      );
     }
     return Consumer<ItemData>(
         builder: (context, productData, child){

@@ -16,9 +16,6 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final _auth = FirebaseAuth.instance;
   UserModel user = UserModel();
-  // late String name;
-  // late String email;
-  // late String commerceName;
   late String password;
   @override
   Widget build(BuildContext context) {
@@ -28,7 +25,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFFAECCC4),
+          backgroundColor: kSecondaryColor,
           title: Text('myCommerce'),
         ),
         body: Padding(
@@ -37,8 +34,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Cadastre-se agora mesmo!', style: TextStyle(
-                color: Color(0xFF139C82),
-                fontSize: 21,
+                color: kSecondaryColor,
+                fontSize: 15,
                 fontWeight: FontWeight.bold,
               ),
               ),
@@ -114,7 +111,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: TextButton.icon(
                   style: TextButton.styleFrom(
                     foregroundColor: Colors.white,
-                    backgroundColor: Color(0xFF139C82),
+                    backgroundColor: kSecondaryColor,
                   ),
                   onPressed: () async {
                     final newUser = await _auth.createUserWithEmailAndPassword(
