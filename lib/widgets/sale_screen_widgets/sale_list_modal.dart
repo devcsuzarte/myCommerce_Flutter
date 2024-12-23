@@ -45,7 +45,7 @@ class SaleListPopup extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    bool wasSale = Provider.of<ItemData>(context, listen: false).registerSale();
+                    bool wasSale = Provider.of<ItemData>(context, listen: false).registerSale(Provider.of<ItemData>(context, listen: false).dbCommerceUID);
                     final snackBar = SnackBar(
                       content: Text(
                         wasSale ? 'Venda efetuada com sucesso' : 'Erro ao efetuar venda, quantidade excede o estoque',

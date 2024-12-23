@@ -25,6 +25,9 @@ class _ItemsListState extends State<ItemsList> {
   //final String searchBarText;
   @override
   Widget build(BuildContext context) {
+    if(Provider.of<ItemData>(context, listen: false).itemsList.isEmpty) {
+      return Text('no data');
+    }
     return Consumer<ItemData>(
         builder: (context, productData, child){
           return Column(
@@ -94,7 +97,7 @@ class _ItemsListState extends State<ItemsList> {
                                                           color: Colors.red,
                                                         ),
                                                         onPressed:() {
-                                                          Provider.of<ItemData>(context, listen: false).deleteItem(item.id!);
+                                                          Provider.of<ItemData>(context, listen: false).deleteItem(item.id!, Provider.of<ItemData>(context, listen: false).dbCommerceUID);
                                                           Navigator.pop(context);
                                                         }),
                                                   ),
@@ -108,7 +111,8 @@ class _ItemsListState extends State<ItemsList> {
                                                           Provider.of<ItemData>(context, listen: false).updateItem(
                                                               item.id!,
                                                               int.parse(stockTextController.text),
-                                                              double.parse(priceTextController.text)
+                                                              double.parse(priceTextController.text),
+                                                              Provider.of<ItemData>(context, listen: false).dbCommerceUID
                                                           );
                                                           Navigator.pop(context);
                                                         }),

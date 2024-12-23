@@ -164,7 +164,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                   details: Provider.of<ItemData>(context, listen: false).detailsString,
                                   stock: stock,
                                   price: price);
-                              ItemData().registerItem(newItem);
+                              ItemData().registerItem(newItem, Provider.of<ItemData>(context, listen: false).dbCommerceUID);
                               print('Form is valid ${newItem.productName}');
                             }
                           },

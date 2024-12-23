@@ -16,14 +16,13 @@ class BillList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: db.collection("bill").orderBy('dateTime', descending: true).snapshots(),
+        stream: db.collection("bill@${Provider.of<ItemData>(context, listen: false).dbCommerceUID}").orderBy('dateTime', descending: true).snapshots(),
         builder: (context, snapshot) {
           if(!snapshot.hasData) {
             return Center(
               child: Text('Não a registros de vendas'),
             );
           }
-
           final bills = snapshot.data?.docs;
           List<Bill> billsList = [];
 

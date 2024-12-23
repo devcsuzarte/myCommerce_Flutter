@@ -97,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 try {
                                   final user = await _auth.signInWithEmailAndPassword(email: email, password: password);
                                   if(user != null){
-                                    //Provider.of<ItemData>(context, listen: false).dbCommerceUID = user.user!.uid;
+                                    Provider.of<ItemData>(context, listen: false).dbCommerceUID = user.user!.uid;
                                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
                                   }
                                 } catch (e) {

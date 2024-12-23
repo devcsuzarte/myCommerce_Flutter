@@ -11,6 +11,7 @@ class ItemData extends ChangeNotifier {
   List<Detail> detailList = [];
 
   String searchText = '';
+  String dbCommerceUID = '';
   bool saleIsEnable = false;
 
   void toggleSaleState() {
@@ -23,9 +24,9 @@ class ItemData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getItemFromFirebase(String search) async {
+  void getItemFromFirebase(String search, String dbUID) async {
     List<Item> itemsListSnapshot = [];
-    await db.collection("items").get().then(
+    await db.collection("items@$dbUID").get().then(
           (querySnapshot) {
         print("Successfully completed");
         for (var item in querySnapshot.docs) {
@@ -65,52 +66,52 @@ class ItemData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteItem(String docID) {
-    db.collection('items').doc(docID).delete().then(
+  void deleteItem(String docID, String dbUID) {
+    db.collection('items@$dbUID').doc(docID).delete().then(
           (doc) => print("Document deleted"),
       onError: (e) => print("Error updating document $e"),
     );
-    getItemFromFirebase('');
+    getItemFromFirebase('', dbUID);
   }
 
-  void updateItem(String docID, int newStock, double newPrice){
-    db.collection('items').doc(docID).update({
+  void updateItem(String docID, int newStock, double newPrice, String dbUID){
+    db.collection('items@$dbUID').doc(docID).update({
       "stock": newStock,
       "price": newPrice,
     }).then(
             (value) => print("DocumentSnapshot successfully updated!"),
         onError: (e) => print("Error updating document $e"));
 
-    getItemFromFirebase('');
+    getItemFromFirebase('', dbUID);
   }
 
-  void updateStock(String docID, int newStock) {
+  void updateStock(String docID, int newStock, String dbUID) {
 
-    db.collection('items').doc(docID).update({
+    db.collection('items@$dbUID').doc(docID).update({
       "stock": newStock,
     }).then(
             (value) => print("DocumentSnapshot successfully updated!"),
         onError: (e) => print("Error updating document $e"));
-    getItemFromFirebase('');
+    getItemFromFirebase('', dbUID);
 
   }
 
-  void registerItem(Item newItem){
-
+  void registerItem(Item newItem, String dbUID){
+    print(dbUID);
     try {
-      db.collection('items').add({
+      db.collection('items@$dbUID').add({
         'productName': newItem.productName,
         'details': newItem.details,
         'price': newItem.price,
         'stock': newItem.stock,
       }).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
-      getItemFromFirebase('');
+      getItemFromFirebase('', dbUID);
     } catch (e) {
       print('DEBUG: Erro to register item $e');
     }
 
   }
-  bool registerSale() {
+  bool registerSale(String dbUID) {
     bool amountIsAvailable = true;
     for(var item in finishSaleList) {
       if(item.amount! > item.stock!) {
@@ -118,13 +119,13 @@ class ItemData extends ChangeNotifier {
         amountIsAvailable = false;
         break;
       } else {
-        updateStock(item.id!, item.stock! - item.amount!);
+        updateStock(item.id!, item.stock! - item.amount!, dbUID);
         print("DEBUG: Amount: ${item.amount} Stock: ${item.stock}");
       }
     }
 
     if(amountIsAvailable){
-      db.collection('bill').add({
+      db.collection('bill@$dbUID').add({
         'dateTime': DateTime.now().millisecondsSinceEpoch,
         'itemsSold': mapItemSoldList,
         'totalBill': getTotalBillValue(),
@@ -213,6 +214,9 @@ class ItemData extends ChangeNotifier {
    }
 
   String getDetailsToItemCell(List<dynamic> itemDetails) {
+    if (itemDetails.isEmpty) {
+      return '';
+    }
     String details = itemDetails.reduce((value, element) => value + " | " + element);
     return details;
   }
