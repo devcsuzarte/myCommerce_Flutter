@@ -2,12 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycommerce/constants.dart';
 import 'package:mycommerce/controller/commerce_data.dart';
-import 'package:mycommerce/screens/sale_screen/cupertino_sale_screen.dart';
 import 'package:mycommerce/widgets/items_screen_widgets/items_list.dart';
-import 'package:mycommerce/widgets/navigation_bar/appbar_cupertino.dart';
-import 'package:mycommerce/widgets/sale_screen_widgets/sale_list.dart';
 import 'package:provider/provider.dart';
-
 import '../../widgets/alert_dialog/showCustomAlertDialog.dart';
 import '../../widgets/sale_screen_widgets/sale_list_modal.dart';
 
@@ -23,10 +19,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print('DEBUG ITEMSCREEN APPEARS');
-    print('USER UID: ${Provider.of<ItemData>(context, listen: false).dbCommerceUID}');
     Provider.of<ItemData>(context, listen: false).getItemFromFirebase('');
-
   }
   @override
 

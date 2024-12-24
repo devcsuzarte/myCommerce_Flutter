@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: TextButton.icon(
                               style: TextButton.styleFrom(
                                 foregroundColor: Colors.white,
-                                backgroundColor: Color(0xFF62CFE7),
+                                backgroundColor: kSecondaryColor,
                               ),
                               onPressed: () async {
                                 try {

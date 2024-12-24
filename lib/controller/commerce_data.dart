@@ -75,6 +75,7 @@ class ItemData extends ChangeNotifier {
           (doc) => print("Document deleted"),
       onError: (e) => print("Error updating document $e"),
     );
+    finishSaleList = [];
     getItemFromFirebase('');
   }
 
@@ -108,6 +109,7 @@ class ItemData extends ChangeNotifier {
         'price': newItem.price,
         'stock': newItem.stock,
       }).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
+      detailList = [];
       getItemFromFirebase('');
     } catch (e) {
       print('DEBUG: Erro to register item $e');

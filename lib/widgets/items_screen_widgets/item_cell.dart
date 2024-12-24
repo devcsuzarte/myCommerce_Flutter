@@ -26,10 +26,12 @@ class ItemCell extends StatelessWidget {
         Flexible(
           flex: 2,
           child: CircleAvatar(
+            backgroundColor: kSecondaryColor,
             minRadius: 28,
             child: Icon(
               item.stock! > 0 ? CupertinoIcons.archivebox_fill : CupertinoIcons.archivebox,
               size: 35,
+              color: kPrimaryColor,
             ),
           ),
         ),
@@ -64,7 +66,7 @@ class ItemCell extends StatelessWidget {
                 },
                 icon: Icon(
                   CupertinoIcons.plus_circle_fill,
-                  color: kSecondaryColor,
+                  color: kTextColor,
                 ),
               ),
             ],

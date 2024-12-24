@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 const kPrimaryColor = Colors.white;
 const kSecondaryColor = Color(0xFF4A90E2);
+const kTitleColor = Color(0xFF0D0D0D);
+const kTextColor = Color(0xFF828285);
 // #0C183E
 // #4CD0FE
 

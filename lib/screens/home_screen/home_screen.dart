@@ -44,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         currentIndex: _selectedIndex,
+        selectedItemColor: kSecondaryColor,
         onTap: _onTabTapped,
       ),
       body: _screens[_selectedIndex],

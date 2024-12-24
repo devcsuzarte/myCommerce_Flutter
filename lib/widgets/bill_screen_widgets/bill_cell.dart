@@ -34,7 +34,7 @@ class BillCell extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: kSecondaryColor
+                        color: kTitleColor
                       ),
                     ),
                   ),
@@ -44,14 +44,16 @@ class BillCell extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(right: 5.0),
                         child: Icon(
-                          CupertinoIcons.clock,
+                          color: kTextColor,
+                          CupertinoIcons.clock_fill,
                           size: 15,
                         ),
                       ),
                       Text('${formattedTime}',
                         style: TextStyle(
+                            fontWeight: FontWeight.bold,
                             fontSize: 15,
-                            color: kSecondaryColor
+                            color: kTextColor
                         ),
                       ),
                     ],
@@ -67,7 +69,7 @@ class BillCell extends StatelessWidget {
                 children: [
                   Text('Total: R\$ ${sale.totalBill.toStringAsFixed(2)}',
                     style: TextStyle(
-                        color: kSecondaryColor,
+                        color: kTitleColor,
                         fontSize: 17,
                         fontWeight: FontWeight.bold,
                     ),

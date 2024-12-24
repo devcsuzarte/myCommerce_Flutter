@@ -22,7 +22,6 @@ class ItemsList extends StatefulWidget {
 }
 
 class _ItemsListState extends State<ItemsList> {
-  //final String searchBarText;
   @override
   Widget build(BuildContext context) {
     return Consumer<ItemData>(
@@ -38,8 +37,8 @@ class _ItemsListState extends State<ItemsList> {
                     final TextEditingController stockTextController = TextEditingController();
                     priceTextController.text = item.price.toString();
                     stockTextController.text = item.stock.toString();
-                    return GestureDetector(
-                      onLongPress: () {
+                    return InkWell(
+                      onTap: () {
                         showModalBottomSheet(
                             enableDrag: true,
                             showDragHandle: true,

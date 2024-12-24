@@ -6,7 +6,6 @@ import 'package:mycommerce/models/detail_model.dart';
 import 'package:mycommerce/models/item_model.dart';
 import 'package:mycommerce/widgets/add_item_widgets/add_detail.dart';
 import 'package:mycommerce/widgets/add_item_widgets/detailList.dart';
-import 'package:mycommerce/widgets/navigation_bar/appbar_cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 
