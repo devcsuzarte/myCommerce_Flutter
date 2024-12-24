@@ -25,7 +25,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
     super.initState();
     print('DEBUG ITEMSCREEN APPEARS');
     print('USER UID: ${Provider.of<ItemData>(context, listen: false).dbCommerceUID}');
-    Provider.of<ItemData>(context, listen: false).getItemFromFirebase('', Provider.of<ItemData>(context, listen: false).dbCommerceUID);
+    Provider.of<ItemData>(context, listen: false).getItemFromFirebase('');
 
   }
   @override
@@ -87,13 +87,13 @@ class _ItemsScreenState extends State<ItemsScreen> {
                         onTap: () {
                           searchBarTextController.text = '';
                           FocusScope.of(context).unfocus();
-                          Provider.of<ItemData>(context, listen: false).getItemFromFirebase('', Provider.of<ItemData>(context, listen: false).dbCommerceUID);
+                          Provider.of<ItemData>(context, listen: false).getItemFromFirebase('');
                           },
                         child: Icon(CupertinoIcons.clear_circled),
                     ),
                   ),
                   onChanged: (text) {
-                    Provider.of<ItemData>(context, listen: false).getItemFromFirebase(text, Provider.of<ItemData>(context, listen: false).dbCommerceUID);
+                    Provider.of<ItemData>(context, listen: false).getItemFromFirebase(text);
                   },
                 ),
               ),

@@ -129,7 +129,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                               child: Text(
                                 'Propriedades do produto',
                                 style: TextStyle(
-                                  fontSize: 18
+                                  fontSize: 15
                                 ),
                               ),
                             ),
@@ -164,7 +164,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                   details: Provider.of<ItemData>(context, listen: false).detailsString,
                                   stock: stock,
                                   price: price);
-                              ItemData().registerItem(newItem, Provider.of<ItemData>(context, listen: false).dbCommerceUID);
+                              ItemData().registerItem(newItem);
                               print('Form is valid ${newItem.productName}');
                             }
                           },

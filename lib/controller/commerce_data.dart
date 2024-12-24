@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mycommerce/models/detail_model.dart';
 import 'package:mycommerce/models/item_model.dart';
@@ -5,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ItemData extends ChangeNotifier {
   final db = FirebaseFirestore.instance;
+  final _dbUserUID = FirebaseAuth.instance.currentUser!.uid;
 
   List<Item> itemsList = [];
   List<Item> finishSaleList = [];
@@ -24,9 +26,10 @@ class ItemData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getItemFromFirebase(String search, String dbUID) async {
+  void getItemFromFirebase(String search) async {
+    print('USER UID FROM COMMERCE DATA: $_dbUserUID');
     List<Item> itemsListSnapshot = [];
-    await db.collection("items@$dbUID").get().then(
+    await db.collection("items@$_dbUserUID").get().then(
           (querySnapshot) {
         print("Successfully completed");
         for (var item in querySnapshot.docs) {
@@ -62,56 +65,56 @@ class ItemData extends ChangeNotifier {
       notifyListeners();
     } else {
       itemsList = itemsListSnapshot;
+      notifyListeners();
     }
-    notifyListeners();
+
   }
 
-  void deleteItem(String docID, String dbUID) {
-    db.collection('items@$dbUID').doc(docID).delete().then(
+  void deleteItem(String docID) {
+    db.collection('items@$_dbUserUID').doc(docID).delete().then(
           (doc) => print("Document deleted"),
       onError: (e) => print("Error updating document $e"),
     );
-    getItemFromFirebase('', dbUID);
+    getItemFromFirebase('');
   }
 
-  void updateItem(String docID, int newStock, double newPrice, String dbUID){
-    db.collection('items@$dbUID').doc(docID).update({
+  void updateItem(String docID, int newStock, double newPrice){
+    db.collection('items@$_dbUserUID').doc(docID).update({
       "stock": newStock,
       "price": newPrice,
     }).then(
             (value) => print("DocumentSnapshot successfully updated!"),
         onError: (e) => print("Error updating document $e"));
 
-    getItemFromFirebase('', dbUID);
+    getItemFromFirebase('');
   }
 
-  void updateStock(String docID, int newStock, String dbUID) {
+  void updateStock(String docID, int newStock) {
 
-    db.collection('items@$dbUID').doc(docID).update({
+    db.collection('items@$_dbUserUID').doc(docID).update({
       "stock": newStock,
     }).then(
             (value) => print("DocumentSnapshot successfully updated!"),
         onError: (e) => print("Error updating document $e"));
-    getItemFromFirebase('', dbUID);
+    getItemFromFirebase('');
 
   }
 
-  void registerItem(Item newItem, String dbUID){
-    print(dbUID);
+  void registerItem(Item newItem){
     try {
-      db.collection('items@$dbUID').add({
+      db.collection('items@$_dbUserUID').add({
         'productName': newItem.productName,
         'details': newItem.details,
         'price': newItem.price,
         'stock': newItem.stock,
       }).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
-      getItemFromFirebase('', dbUID);
+      getItemFromFirebase('');
     } catch (e) {
       print('DEBUG: Erro to register item $e');
     }
 
   }
-  bool registerSale(String dbUID) {
+  bool registerSale() {
     bool amountIsAvailable = true;
     for(var item in finishSaleList) {
       if(item.amount! > item.stock!) {
@@ -119,13 +122,13 @@ class ItemData extends ChangeNotifier {
         amountIsAvailable = false;
         break;
       } else {
-        updateStock(item.id!, item.stock! - item.amount!, dbUID);
+        updateStock(item.id!, item.stock! - item.amount!);
         print("DEBUG: Amount: ${item.amount} Stock: ${item.stock}");
       }
     }
 
     if(amountIsAvailable){
-      db.collection('bill@$dbUID').add({
+      db.collection('bill@$_dbUserUID').add({
         'dateTime': DateTime.now().millisecondsSinceEpoch,
         'itemsSold': mapItemSoldList,
         'totalBill': getTotalBillValue(),
@@ -208,7 +211,7 @@ class ItemData extends ChangeNotifier {
   double getTotalBillValue() {
    double total = 0.0;
    for(var item in finishSaleList) {
-     total =total + (item.price! * item.amount!);
+     total = total + (item.price! * item.amount!);
    }
    return total;
    }
@@ -228,17 +231,6 @@ class ItemData extends ChangeNotifier {
     }
     return details;
   }
-
-  // void addDetail() {
-  //   detailList.add(
-  //       Detail(
-  //           'Propriedade', 'Descrição',
-  //           TextEditingController(),
-  //           TextEditingController()
-  //       ),
-  //   );
-  //   notifyListeners();
-  // }
 
   void addDetail(String propertyText, descriptionText) {
     detailList.add(
