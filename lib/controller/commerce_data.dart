@@ -26,6 +26,11 @@ class ItemData extends ChangeNotifier {
     notifyListeners();
   }
 
+  void cleanDetailsList(){
+    detailList = [];
+    notifyListeners();
+  }
+
   void getItemFromFirebase(String search) async {
     print('USER UID FROM COMMERCE DATA: $_dbUserUID');
     List<Item> itemsListSnapshot = [];
@@ -109,7 +114,7 @@ class ItemData extends ChangeNotifier {
         'price': newItem.price,
         'stock': newItem.stock,
       }).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
-      detailList = [];
+      notifyListeners();
       getItemFromFirebase('');
     } catch (e) {
       print('DEBUG: Erro to register item $e');

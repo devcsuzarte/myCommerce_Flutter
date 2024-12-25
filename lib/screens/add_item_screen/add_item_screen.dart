@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycommerce/constants.dart';
 import 'package:mycommerce/controller/commerce_data.dart';
-import 'package:mycommerce/models/detail_model.dart';
 import 'package:mycommerce/models/item_model.dart';
 import 'package:mycommerce/widgets/add_item_widgets/add_detail.dart';
 import 'package:mycommerce/widgets/add_item_widgets/detailList.dart';
@@ -164,6 +163,8 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                   stock: stock,
                                   price: price);
                               ItemData().registerItem(newItem);
+                              form.reset();
+                              Provider.of<ItemData>(context, listen: false).cleanDetailsList();
                               print('Form is valid ${newItem.productName}');
                             }
                           },
@@ -177,108 +178,3 @@ class _AddItemScreenState extends State<AddItemScreen> {
     ) ;
   }
 }
-
-// children: [
-// CupertinoFormSection.insetGrouped(
-// margin: EdgeInsets.all(12),
-// header: Text('Preencha as informações'),
-// footer: Divider(),
-// children: [
-// CupertinoFormRow(
-// prefix: Text('Título'),
-// child: TextFormField(
-// decoration: kInputDecoration,
-// textInputAction: TextInputAction.next,
-// autovalidateMode: AutovalidateMode.onUserInteraction,
-// validator: (value) {
-// if (value == null || value.isEmpty) {
-// return 'Insira um título válido';
-// } else {
-// title = value;
-// return null;
-// }
-// },
-// ),
-// ),
-// CupertinoFormRow(
-// prefix: Text('Estoque'),
-// child: CupertinoTextFormFieldRow(
-// keyboardType: TextInputType.number,
-// placeholder: '10',
-// textInputAction: TextInputAction.next,
-// autovalidateMode: AutovalidateMode.onUserInteraction,
-// validator: (value) {
-// if (value == null || value.isEmpty) {
-// return '*';
-// } else {
-// stock = int.parse(value);
-// return null;
-// }
-// },
-// ),
-// ),
-// CupertinoFormRow(
-// prefix: Text('Preço'),
-// child: CupertinoTextFormFieldRow(
-// keyboardType: TextInputType.numberWithOptions(decimal: true),
-// placeholder: 'R\$ 5200,00',
-// autovalidateMode: AutovalidateMode.onUserInteraction,
-// validator: (value) {
-// if (value == null || value.isEmpty) {
-// return '*';
-// } else {
-// price = double.parse(value);
-// return null;
-// }
-// },
-// ),
-// ),
-// ],
-// ),
-// CupertinoFormSection.insetGrouped(
-// margin: EdgeInsets.all(12),
-// header: Row(
-// mainAxisAlignment: MainAxisAlignment.spaceBetween,
-// children: [
-// Text('Adicione propriedades do produto'),
-// CupertinoButton(
-// child: Icon(
-// CupertinoIcons.add_circled_solid,
-// color: kSecondaryColor,
-// ),
-// onPressed: () {
-// Provider.of<ItemData>(context, listen: false).addDetail();
-// }),
-// ],
-// ),
-// children: [
-// SizedBox(
-// height: MediaQuery.of(context).size.height * 0.25,
-// child: Detaillist(),
-// ),
-// ],
-// ),
-// SizedBox(
-// height: 20,
-// ),
-// Container(
-// margin: EdgeInsets.symmetric(horizontal: 12),
-// width: double.infinity,
-// child: CupertinoButton.filled(
-// onPressed: () {
-// final form = formKey.currentState!;
-// if (form.validate()){
-// var newItem = Item(
-// productName: title,
-// details: Provider.of<ItemData>(context, listen: false).detailsString,
-// stock: stock,
-// price: price);
-// ItemData().registerItem(newItem);
-// print('Form is valid ${newItem.productName}');
-// }
-// },
-// child: Text('Cadastrar'),
-// ),
-// ),
-// ],
-

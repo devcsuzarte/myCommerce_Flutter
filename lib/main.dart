@@ -34,8 +34,10 @@ class MyApp extends StatelessWidget {
           Locale('pt', 'BR'), // English
         ],
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF4A90E2)),
+          colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF4A90E2),
+          ),
           useMaterial3: true,
+          fontFamily: 'Roboto'
         ),
         title: 'Flutter Demo',
         // home: const HomeScreen(),
