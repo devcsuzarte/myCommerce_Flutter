@@ -11,7 +11,11 @@ class CupertinoBillScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kSecondaryColor,
-        title: Text('Minhas vendas'),
+        title: Text('Minhas vendas',
+          style: TextStyle(
+            color: kAppBarTitleColor,
+          ),
+        ),
       ),
       body: SafeArea(
         child: Container(

@@ -74,6 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           SizedBox(
                             height: 42,
                             child: TextField(
+                              obscureText: true,
                               onChanged: (text) {
                                 password = text;
                               },

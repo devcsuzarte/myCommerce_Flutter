@@ -36,7 +36,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
         appBar: AppBar(
           title: Text("Cadastro de Produto",
             style: TextStyle(
-              color: Colors.white
+              color: kAppBarTitleColor
             ),
           ),
           backgroundColor: kSecondaryColor,

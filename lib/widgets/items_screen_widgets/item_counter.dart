@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycommerce/constants.dart';
 import 'package:provider/provider.dart';
 
 import '../../controller/commerce_data.dart';
@@ -25,11 +26,14 @@ class ItemCounter extends StatelessWidget {
               children: [
                 SizedBox(
                   width: 56,
-                  child: Icon(isSaleActivate ? CupertinoIcons.archivebox_fill : CupertinoIcons.cube_box_fill),
+                  child: Icon(CupertinoIcons.cube_box_fill, color: kTextColor,),
                 ),
                 Text(isSaleActivate ? 'Total de itens' : 'Itens selecionados'),
                 Spacer(),
-                Text(isSaleActivate ? '${Provider.of<ItemData>(context, listen: false).itemsList.length}' : '${Provider.of<ItemData>(context, listen: false).finishSaleList.length}'),
+                Text('${Provider.of<ItemData>(context, listen: false).finishSaleList.length}', style: TextStyle(
+                  color: kSecondaryColor,
+                  fontWeight: FontWeight.bold,
+                ),),
               ],
             ),
           ),
