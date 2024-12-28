@@ -1,5 +1,8 @@
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mycommerce/constants.dart';
 import 'package:mycommerce/controller/commerce_data.dart';
 import 'package:mycommerce/models/item_model.dart';
@@ -7,6 +10,8 @@ import 'package:mycommerce/widgets/add_item_widgets/add_detail.dart';
 import 'package:mycommerce/widgets/add_item_widgets/detailList.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 final db = FirebaseFirestore.instance;
 
@@ -24,6 +29,36 @@ class _AddItemScreenState extends State<AddItemScreen> {
   String title = '';
   int stock = 1;
   double price = 0.0;
+  String? imagePath;
+  File? imageFile;
+
+  Future<void> pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if(pickedFile != null) {
+      imageFile = File(pickedFile.path);
+      uploadImage();
+    }
+  }
+
+  Future<void> uploadImage() async {
+
+    final url = Uri.parse('https://api.cloudinary.com/v1_1/difi9kcoo/upload');
+    final request = http.MultipartRequest('POST', url)
+      ..fields['upload_preset'] = 'commerce'
+      ..files.add(await http.MultipartFile.fromPath('file', imageFile!.path));
+    final response = await request.send();
+    if(response.statusCode == 200) {
+      final responseData = await response.stream.toBytes();
+      final responseString = String.fromCharCodes(responseData);
+      final jsonMap = jsonDecode(responseString);
+      setState(() {
+        final url = jsonMap['url'];
+        imagePath = url;
+      });
+    }
+  }
+
 
 
   @override
@@ -135,7 +170,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                         ),
                         AddDetail(),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.25,
+                          height: MediaQuery.of(context).size.height * 0.10,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: DetailList(),
@@ -143,8 +178,11 @@ class _AddItemScreenState extends State<AddItemScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 20,
+                    MaterialButton(
+                      onPressed: () {
+                        pickImage();
+                      },
+                      child: imagePath != null ? Image.network(imagePath!) : Icon(CupertinoIcons.photo),
                     ),
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 12),
@@ -159,6 +197,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                             if (form.validate()){
                               var newItem = Item(
                                   productName: title.toUpperCase(),
+                                  productUrlImage: imagePath,
                                   details: Provider.of<ItemData>(context, listen: false).detailsString,
                                   stock: stock,
                                   price: price);

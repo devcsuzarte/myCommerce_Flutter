@@ -3,6 +3,7 @@ class Item {
   int? stock;
   int? amount;
   String? productName;
+  String? productUrlImage;
   double? price;
   List<dynamic>? details;
   String? id;
@@ -10,6 +11,7 @@ class Item {
 
   Item({
     this.productName,
+    this.productUrlImage,
     this.details,
     this.price,
     this.stock,

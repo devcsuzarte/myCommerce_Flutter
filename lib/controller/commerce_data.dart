@@ -113,6 +113,7 @@ class ItemData extends ChangeNotifier {
         'details': newItem.details,
         'price': newItem.price,
         'stock': newItem.stock,
+        'imageURL': newItem.productUrlImage,
       }).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
       notifyListeners();
       getItemFromFirebase('');
