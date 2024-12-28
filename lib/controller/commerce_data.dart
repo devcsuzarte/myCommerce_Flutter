@@ -43,6 +43,7 @@ class ItemData extends ChangeNotifier {
           final price = item['price'];
           final stock = item['stock'];
           final details = item['details'];
+          final imageURL = item['imageURL'];
           final id = item.id;
 
           final itemRecived = Item(
@@ -51,6 +52,7 @@ class ItemData extends ChangeNotifier {
             stock: stock,
             details: details,
             id: id,
+            productUrlImage: imageURL
           );
           itemsListSnapshot.add(itemRecived);
         }
