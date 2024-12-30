@@ -69,12 +69,9 @@ class _AddItemScreenState extends State<AddItemScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Cadastro de Produto",
-            style: TextStyle(
-              color: kAppBarTitleColor
-            ),
-          ),
+          title: Text("Cadastro de Produto"),
           backgroundColor: kSecondaryColor,
+          foregroundColor: kAppBarTitleColor,
         ),
           body:  Form(
                 key: formKey,
@@ -83,20 +80,28 @@ class _AddItemScreenState extends State<AddItemScreen> {
                     Expanded(
                       flex: 1,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: CircleAvatar(
+                        padding: const EdgeInsets.only(top: 15.0),
+                        child: Container(
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
                           child: GestureDetector(
                             onTap: () {
                               pickImage();
                             },
+                            child: imagePath != null ? Image(image: NetworkImage(imagePath!)) :
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                              Icon(CupertinoIcons.photo,size: 100, color: kTextColor,),
+                              Text('Adicionar Imagem')],),
                           ),
-                          backgroundImage: imagePath != null ? NetworkImage(imagePath!) : AssetImage('assets/Image-not-found.png'),
-                          minRadius: 10,
                         ),
                       )
                     ),
                     Expanded(
-                      flex: 3,
+                      flex: 4,
                       child: ListView(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         children: [
@@ -189,7 +194,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                               ),
                               AddDetail(),
                               SizedBox(
-                                height: MediaQuery.of(context).size.height * 0.20,
+                                height: MediaQuery.of(context).size.height * 0.15,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                                   child: DetailList(),

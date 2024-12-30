@@ -125,6 +125,7 @@ class _ItemsListState extends State<ItemsList> {
                                             Flexible(
                                               child: TextField(
                                                 controller: priceTextController,
+                                                keyboardType: TextInputType.numberWithOptions(decimal: true),
                                                 decoration: kInputDecoration.copyWith(
                                                   labelText: 'Preço'
                                                 ),
