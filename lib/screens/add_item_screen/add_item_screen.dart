@@ -75,36 +75,29 @@ class _AddItemScreenState extends State<AddItemScreen> {
         ),
           body:  Form(
                 key: formKey,
-                child: Column(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 15.0),
-                        child: Container(
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: GestureDetector(
-                            onTap: () {
-                              pickImage();
-                            },
-                            child: imagePath != null ? Image(image: NetworkImage(imagePath!)) :
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                              Icon(CupertinoIcons.photo,size: 100, color: kTextColor,),
-                              Text('Adicionar Imagem')],),
-                          ),
-                        ),
-                      )
-                    ),
-                    Expanded(
-                      flex: 4,
-                      child: ListView(
+                child: ListView(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15.0),
+                            child: Container(
+                              clipBehavior: Clip.antiAlias,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: GestureDetector(
+                                onTap: () {
+                                  pickImage();
+                                },
+                                child: imagePath != null ? Image(image: NetworkImage(imagePath!)) :
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Icon(CupertinoIcons.photo,size: 100, color: kTextColor,),
+                                    Text('Adicionar Imagem')],),
+                              ),
+                            ),
+                          ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 15.0),
                                   child: Text(
@@ -228,11 +221,11 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                 child: Text('Cadastrar'),
                                 ),
                           ),
+                          SizedBox(
+                            height: 55,
+                          )
                         ],
                       ),
-                    ),
-                  ],
-                ),
               ),
       ),
     ) ;

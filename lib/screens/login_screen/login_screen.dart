@@ -102,8 +102,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     Provider.of<ItemData>(context, listen: false).dbCommerceUID = user.user!.uid;
                                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
                                   }
-                                } catch (e) {
-                                  print('Login fail with error: $e');
+                                } on FirebaseAuthException catch (e) {
+                                  print('Login fail with error: ${e.}');
                                 }
                               },
                               icon: const Icon(Icons.input),
