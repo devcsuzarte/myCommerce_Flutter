@@ -28,11 +28,11 @@ class CustomAlertDialog {
         barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: kCartEmptyAlertDialogTitle,
-            content: const SingleChildScrollView(
+            title: alertTitle,
+            content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget> [
-                  kCartEmptyAlertDialogDescription,
+                  alertDescription,
                 ],
               ),
             ),
@@ -41,7 +41,7 @@ class CustomAlertDialog {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: kCartEmptyAlertActionTitle,
+                child: alertActionTitle,
               ),
             ],
           );
@@ -54,11 +54,11 @@ class CustomAlertDialog {
     showCupertinoDialog<void>(
       context: context,
       builder: (BuildContext context) => CupertinoAlertDialog(
-        title: kCartEmptyAlertDialogTitle,
-        content: kCartEmptyAlertDialogDescription,
+        title: alertTitle,
+        content: alertDescription,
         actions: <CupertinoDialogAction> [
           CupertinoDialogAction(
-            child: kCartEmptyAlertActionTitle,
+            child: alertActionTitle,
             onPressed: () => Navigator.pop(context),
           ),
         ],

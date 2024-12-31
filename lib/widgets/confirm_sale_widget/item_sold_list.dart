@@ -45,6 +45,7 @@ class ItemSoldList extends StatelessWidget {
                               child: TextField(
                                 textAlign: TextAlign.center,
                                 textAlignVertical: TextAlignVertical.center,
+                                keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: '1',

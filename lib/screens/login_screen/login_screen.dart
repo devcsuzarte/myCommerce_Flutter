@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycommerce/controller/commerce_data.dart';
+import 'package:mycommerce/controller/users_data.dart';
 import 'package:mycommerce/screens/register_screen/register_screen.dart';
 import 'package:mycommerce/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mycommerce/screens/home_screen/home_screen.dart';
+import 'package:mycommerce/widgets/alert_dialog/showCustomAlertDialog.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -103,7 +105,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
                                   }
                                 } on FirebaseAuthException catch (e) {
-                                  print('Login fail with error: ${e.}');
+                                  print('Login fail with error: ${e.code}');
+                                  CustomAlertDialog(
+                                    alertTitle: Text('Erro ao fazer Login'),
+                                    alertDescription: Text(UsersData().verifyErrorCode('auth/${e.code}')!),
+                                    alertActionTitle: Text('Ok'),
+                                  ).showCustomAlertDialog(context);
                                 }
                               },
                               icon: const Icon(Icons.input),

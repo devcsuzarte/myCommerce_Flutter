@@ -40,9 +40,9 @@ class _ItemsScreenState extends State<ItemsScreen> {
               onPressed: () {
                 if(Provider.of<ItemData>(context, listen: false).finishSaleList.isEmpty){
                   CustomAlertDialog(
-                      alertActionTitle: kCartEmptyAlertDialogTitle,
+                      alertTitle: kCartEmptyAlertDialogTitle,
                       alertDescription: kCartEmptyAlertDialogDescription,
-                      alertTitle: kCartEmptyAlertActionTitle
+                      alertActionTitle: kCartEmptyAlertActionTitle,
                   ).showCustomAlertDialog(context);
                   //showCommerceCupertinoDialog(context);
                 } else {
