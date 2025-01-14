@@ -81,7 +81,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 password = text;
                               },
                                 decoration: kInputDecoration.copyWith(
-                                    labelText: 'Senha'
+                                  labelText: 'Senha',
+                                  hintText: 'Minhasenha@1234'
                                 )
                             ),
                           ),

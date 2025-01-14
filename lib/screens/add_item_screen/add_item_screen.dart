@@ -213,6 +213,9 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                         stock: stock,
                                         price: price);
                                     ItemData().registerItem(newItem);
+                                    setState(() {
+                                      imagePath = null;
+                                    });
                                     form.reset();
                                     Provider.of<ItemData>(context, listen: false).cleanDetailsList();
                                     print('Form is valid ${newItem.productName}');

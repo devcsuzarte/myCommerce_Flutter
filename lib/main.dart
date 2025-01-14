@@ -18,7 +18,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -34,14 +33,14 @@ class MyApp extends StatelessWidget {
           Locale('pt', 'BR'), // English
         ],
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF4A90E2),
-          ),
-          useMaterial3: true,
-          fontFamily: 'Roboto'
-        ),
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Color(0xFF4A90E2),
+            ),
+            useMaterial3: true,
+            fontFamily: 'Roboto'),
         title: 'Flutter Demo',
         // home: const HomeScreen(),
-       home: isAuth? const HomeScreen() : LoginScreen(),
+        home: isAuth ? const HomeScreen() : LoginScreen(),
       ),
     );
   }

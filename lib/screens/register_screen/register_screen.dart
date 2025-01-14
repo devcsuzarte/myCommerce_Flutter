@@ -67,7 +67,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 kTextFieldSeparator,
                 TextFormField(
                   decoration: kInputDecoration.copyWith(
-                      labelText: 'Nome do Comércio'
+                    labelText: 'Nome do Comércio',
+                    hintText: 'Nolas Store'
                   ),
                   textInputAction: TextInputAction.next,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -83,7 +84,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 kTextFieldSeparator,
                 TextFormField(
                   decoration: kInputDecoration.copyWith(
-                        labelText: 'Email'
+                    labelText: 'Email',
+                    hintText: 'john@store.com'
                   ),
                   textInputAction: TextInputAction.next,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -99,7 +101,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 kTextFieldSeparator,
                 TextFormField(
                   decoration: kInputDecoration.copyWith(
-                      labelText: 'Senha'
+                    labelText: 'Senha',
+                    hintText: 'Senha@1234'
                   ),
                   obscureText: true,
                   textInputAction: TextInputAction.next,
@@ -116,7 +119,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 kTextFieldSeparator,
                 TextFormField(
                   decoration: kInputDecoration.copyWith(
-                      labelText: 'Confirmar senha'
+                      labelText: 'Confirmar senha',
+                      hintText: 'Senha@1234'
                   ),
                   obscureText: true,
                   textInputAction: TextInputAction.next,

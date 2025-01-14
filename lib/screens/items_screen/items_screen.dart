@@ -17,12 +17,11 @@ class ItemsScreen extends StatefulWidget {
 class _ItemsScreenState extends State<ItemsScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Provider.of<ItemData>(context, listen: false).getItemFromFirebase('');
   }
-  @override
 
+  @override
   Widget build(BuildContext context) {
     TextEditingController searchBarTextController = TextEditingController();
     return InkWell(
@@ -31,18 +30,20 @@ class _ItemsScreenState extends State<ItemsScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'myCommerce',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           actions: [
             IconButton(
               onPressed: () {
-                if(Provider.of<ItemData>(context, listen: false).finishSaleList.isEmpty){
+                if (Provider.of<ItemData>(context, listen: false)
+                    .finishSaleList
+                    .isEmpty) {
                   CustomAlertDialog(
-                      alertTitle: kCartEmptyAlertDialogTitle,
-                      alertDescription: kCartEmptyAlertDialogDescription,
-                      alertActionTitle: kCartEmptyAlertActionTitle,
+                    alertTitle: kCartEmptyAlertDialogTitle,
+                    alertDescription: kCartEmptyAlertDialogDescription,
+                    alertActionTitle: kCartEmptyAlertActionTitle,
                   ).showCustomAlertDialog(context);
                   //showCommerceCupertinoDialog(context);
                 } else {
@@ -52,54 +53,50 @@ class _ItemsScreenState extends State<ItemsScreen> {
                       showDragHandle: true,
                       context: context,
                       isScrollControlled: true,
-                      builder: (context) => SaleListPopup()
-                  );
+                      builder: (context) => const SaleListPopup());
                 }
               },
-              icon: Icon(CupertinoIcons.cube_box_fill),
+              icon: const Icon(CupertinoIcons.cube_box_fill),
             ),
             IconButton(
               onPressed: () {
-                Provider.of<ItemData>(context, listen: false).cleanFinishSaleList();
+                Provider.of<ItemData>(context, listen: false)
+                    .cleanFinishSaleList();
               },
-              icon: Icon(CupertinoIcons.trash),
+              icon: const Icon(CupertinoIcons.trash),
             ),
           ],
           backgroundColor: kSecondaryColor,
           foregroundColor: kPrimaryColor,
           bottom: PreferredSize(
-            preferredSize: Size(
-              MediaQuery.of(context).size.width,
-              50),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0, right:  8.0, bottom: 10),
-                child: TextField(
-                  controller: searchBarTextController,
-                  decoration: kSearchInputDecoration.copyWith(
-                    suffix: InkWell(
-                        onTap: () {
-                          searchBarTextController.text = '';
-                          FocusScope.of(context).unfocus();
-                          Provider.of<ItemData>(context, listen: false).getItemFromFirebase('');
-                          },
-                        child: Icon(CupertinoIcons.clear_circled),
-                    ),
+            preferredSize: Size(MediaQuery.of(context).size.width, 50),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 10),
+              child: TextField(
+                controller: searchBarTextController,
+                decoration: kSearchInputDecoration.copyWith(
+                  suffix: InkWell(
+                    onTap: () {
+                      searchBarTextController.text = '';
+                      FocusScope.of(context).unfocus();
+                      Provider.of<ItemData>(context, listen: false)
+                          .getItemFromFirebase('');
+                    },
+                    child: const Icon(CupertinoIcons.clear_circled),
                   ),
-                  onChanged: (text) {
-                    Provider.of<ItemData>(context, listen: false).getItemFromFirebase(text);
-                  },
                 ),
-              ),
-          ),
-        ),
-            body: SafeArea(
-                child: Scaffold(
-                  body: ItemsList()
-                ),
+                onChanged: (text) {
+                  Provider.of<ItemData>(context, listen: false)
+                      .getItemFromFirebase(text);
+                },
               ),
             ),
+          ),
+        ),
+        body: const SafeArea(
+          child: Scaffold(body: ItemsList()),
+        ),
+      ),
     );
   }
 }
-
-
