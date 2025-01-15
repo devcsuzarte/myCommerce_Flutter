@@ -15,9 +15,10 @@ class ItemData extends ChangeNotifier {
   String searchText = '';
   String dbCommerceUID = '';
   bool saleIsEnable = false;
+  bool isLoading = false;
 
   void toggleSaleState() {
-    if(saleIsEnable) {
+    if (saleIsEnable) {
       saleIsEnable = false;
       cleanFinishSaleList();
     } else {
@@ -26,7 +27,7 @@ class ItemData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void cleanDetailsList(){
+  void cleanDetailsList() {
     detailList = [];
     notifyListeners();
   }
@@ -35,7 +36,7 @@ class ItemData extends ChangeNotifier {
     print('USER UID FROM COMMERCE DATA: $_dbUserUID');
     List<Item> itemsListSnapshot = [];
     await db.collection("items@$_dbUserUID").get().then(
-          (querySnapshot) {
+      (querySnapshot) {
         print("Successfully completed");
         for (var item in querySnapshot.docs) {
           print('${item.id} => ${item.data()}');
@@ -47,24 +48,23 @@ class ItemData extends ChangeNotifier {
           final id = item.id;
 
           final itemRecived = Item(
-            productName: productName,
-            price: price,
-            stock: stock,
-            details: details,
-            id: id,
-            productUrlImage: imageURL
-          );
+              productName: productName,
+              price: price,
+              stock: stock,
+              details: details,
+              id: id,
+              productUrlImage: imageURL);
           itemsListSnapshot.add(itemRecived);
         }
       },
       onError: (e) => print("Error completing: $e"),
     );
-    if(search.isNotEmpty){
+    if (search.isNotEmpty) {
       print('SEARCH: $search');
       List<Item> searchList = [];
 
-      for(Item item in itemsListSnapshot) {
-        if(item.productName!.contains(search.toUpperCase())) {
+      for (Item item in itemsListSnapshot) {
+        if (item.productName!.contains(search.toUpperCase())) {
           searchList.add(item);
         }
       }
@@ -74,41 +74,36 @@ class ItemData extends ChangeNotifier {
       itemsList = itemsListSnapshot;
       notifyListeners();
     }
-
   }
 
   void deleteItem(String docID) {
     db.collection('items@$_dbUserUID').doc(docID).delete().then(
           (doc) => print("Document deleted"),
-      onError: (e) => print("Error updating document $e"),
-    );
+          onError: (e) => print("Error updating document $e"),
+        );
     finishSaleList = [];
     getItemFromFirebase('');
   }
 
-  void updateItem(String docID, int newStock, double newPrice){
+  void updateItem(String docID, int newStock, double newPrice) {
     db.collection('items@$_dbUserUID').doc(docID).update({
       "stock": newStock,
       "price": newPrice,
-    }).then(
-            (value) => print("DocumentSnapshot successfully updated!"),
+    }).then((value) => print("DocumentSnapshot successfully updated!"),
         onError: (e) => print("Error updating document $e"));
 
     getItemFromFirebase('');
   }
 
   void updateStock(String docID, int newStock) {
-
     db.collection('items@$_dbUserUID').doc(docID).update({
       "stock": newStock,
-    }).then(
-            (value) => print("DocumentSnapshot successfully updated!"),
+    }).then((value) => print("DocumentSnapshot successfully updated!"),
         onError: (e) => print("Error updating document $e"));
     getItemFromFirebase('');
-
   }
 
-  void registerItem(Item newItem){
+  void registerItem(Item newItem) {
     try {
       db.collection('items@$_dbUserUID').add({
         'productName': newItem.productName,
@@ -116,18 +111,19 @@ class ItemData extends ChangeNotifier {
         'price': newItem.price,
         'stock': newItem.stock,
         'imageURL': newItem.productUrlImage,
-      }).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
+      }).then((DocumentReference doc) =>
+          print('DocumentSnapshot added with ID: ${doc.id}'));
       notifyListeners();
       getItemFromFirebase('');
     } catch (e) {
       print('DEBUG: Erro to register item $e');
     }
-
   }
+
   bool registerSale() {
     bool amountIsAvailable = true;
-    for(var item in finishSaleList) {
-      if(item.amount! > item.stock!) {
+    for (var item in finishSaleList) {
+      if (item.amount! > item.stock!) {
         print('Amount not available');
         amountIsAvailable = false;
         break;
@@ -137,12 +133,13 @@ class ItemData extends ChangeNotifier {
       }
     }
 
-    if(amountIsAvailable){
+    if (amountIsAvailable) {
       db.collection('bill@$_dbUserUID').add({
         'dateTime': DateTime.now().millisecondsSinceEpoch,
         'itemsSold': mapItemSoldList,
         'totalBill': getTotalBillValue(),
-      }).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
+      }).then((DocumentReference doc) =>
+          print('DocumentSnapshot added with ID: ${doc.id}'));
       cleanFinishSaleList();
       notifyListeners();
       return true;
@@ -158,7 +155,7 @@ class ItemData extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<dynamic> get mapItemSoldList{
+  List<dynamic> get mapItemSoldList {
     List<Map<String, dynamic>> soldList = [];
     for (var item in finishSaleList) {
       Map<String, dynamic> itemSold = {
@@ -171,11 +168,10 @@ class ItemData extends ChangeNotifier {
     return soldList;
   }
 
-  List<Item>  getBillListFromMap(List<dynamic> itemOnBill) {
+  List<Item> getBillListFromMap(List<dynamic> itemOnBill) {
     List<Item> itemsSold = [];
 
-    for(var item in itemOnBill) {
-
+    for (var item in itemOnBill) {
       final title = item['title'];
       final amount = item['amount'];
       print('DEBUG: Amount: $amount');
@@ -196,9 +192,9 @@ class ItemData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void cleanCheckedItems(){
-    for (var i=0; i < itemsList.length; i++){
-      if(itemsList[i].isSelected){
+  void cleanCheckedItems() {
+    for (var i = 0; i < itemsList.length; i++) {
+      if (itemsList[i].isSelected) {
         itemsList[i].isSelected = itemsList[i].toggleIsSelected();
       }
     }
@@ -219,20 +215,22 @@ class ItemData extends ChangeNotifier {
   }
 
   double getTotalBillValue() {
-   double total = 0.0;
-   for(var item in finishSaleList) {
-     total = total + (item.price! * item.amount!);
-   }
-   return total;
-   }
+    double total = 0.0;
+    for (var item in finishSaleList) {
+      total = total + (item.price! * item.amount!);
+    }
+    return total;
+  }
 
   String getDetailsToItemCell(List<dynamic> itemDetails) {
     if (itemDetails.isEmpty) {
       return '';
     }
-    String details = itemDetails.reduce((value, element) => value + " | " + element);
+    String details =
+        itemDetails.reduce((value, element) => value + " | " + element);
     return details;
   }
+
   List<String> get detailsString {
     List<String> details = [];
 
@@ -244,10 +242,10 @@ class ItemData extends ChangeNotifier {
 
   void addDetail(String propertyText, descriptionText) {
     detailList.add(
-        Detail(
-          propertyText,
-          descriptionText,
-        ),
+      Detail(
+        propertyText,
+        descriptionText,
+      ),
     );
     notifyListeners();
   }
@@ -261,5 +259,4 @@ class ItemData extends ChangeNotifier {
     finishSaleList.removeAt(index);
     notifyListeners();
   }
-
 }
